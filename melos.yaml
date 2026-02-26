@@ -1,5 +1,5 @@
 name: reacton_workspace
-repository: https://github.com/sitharaj/reacton
+repository: https://github.com/sitharaj88/reacton
 
 packages:
   - packages/**

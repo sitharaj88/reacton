@@ -1,11 +1,11 @@
 name: reacton
 description: >
   A novel reactive graph engine for Dart. Fine-grained state management with
-  atoms, computed values, effects, state branching, time-travel, and more.
+  reactons, computed values, effects, state branching, time-travel, and more.
 version: 0.1.0
-homepage: https://github.com/sitharaj/reacton
-repository: https://github.com/sitharaj/reacton
-issue_tracker: https://github.com/sitharaj/reacton/issues
+homepage: https://github.com/sitharaj88/reacton
+repository: https://github.com/sitharaj88/reacton
+issue_tracker: https://github.com/sitharaj88/reacton/issues
 
 environment:
   sdk: '>=3.0.0 <4.0.0'

@@ -4,9 +4,9 @@ description: >
   like creating reactons in build(), using context.read() in build(),
   and patterns that should use computed().
 version: 0.1.0
-homepage: https://github.com/sitharaj/reacton
-repository: https://github.com/sitharaj/reacton
-issue_tracker: https://github.com/sitharaj/reacton/issues
+homepage: https://github.com/sitharaj88/reacton
+repository: https://github.com/sitharaj88/reacton
+issue_tracker: https://github.com/sitharaj88/reacton/issues
 
 environment:
   sdk: '>=3.0.0 <4.0.0'

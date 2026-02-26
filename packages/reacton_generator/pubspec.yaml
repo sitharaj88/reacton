@@ -3,10 +3,9 @@ description: >
   Code generation for Reacton. Generates serializers, analyzes dependency
   graphs, and detects dead reactons at build time.
 version: 0.1.0
-publish_to: none
-homepage: https://github.com/sitharaj/reacton
-repository: https://github.com/sitharaj/reacton
-issue_tracker: https://github.com/sitharaj/reacton/issues
+homepage: https://github.com/sitharaj88/reacton
+repository: https://github.com/sitharaj88/reacton
+issue_tracker: https://github.com/sitharaj88/reacton/issues
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -15,8 +14,7 @@ dependencies:
   build: ^2.4.0
   source_gen: ^1.4.0
   analyzer: ^6.0.0
-  reacton:
-    path: ../reacton
+  reacton: ^0.1.0
 
 dev_dependencies:
   build_test: ^2.2.0

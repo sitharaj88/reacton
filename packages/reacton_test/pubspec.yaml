@@ -3,10 +3,9 @@ description: >
   Testing utilities for Reacton state management. Provides TestReactonStore,
   reacton mocks, effect trackers, and widget test helpers.
 version: 0.1.0
-publish_to: none
-homepage: https://github.com/sitharaj/reacton
-repository: https://github.com/sitharaj/reacton
-issue_tracker: https://github.com/sitharaj/reacton/issues
+homepage: https://github.com/sitharaj88/reacton
+repository: https://github.com/sitharaj88/reacton
+issue_tracker: https://github.com/sitharaj88/reacton/issues
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -17,10 +16,8 @@ dependencies:
     sdk: flutter
   flutter_test:
     sdk: flutter
-  reacton:
-    path: ../reacton
-  flutter_reacton:
-    path: ../flutter_reacton
+  reacton: ^0.1.0
+  flutter_reacton: ^0.1.0
   meta: ^1.11.0
 
 dev_dependencies:
