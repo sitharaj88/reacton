@@ -86,12 +86,17 @@ class ReactonDevToolsService {
 // Data classes
 // ---------------------------------------------------------------------------
 
+/// The full reactive dependency graph with nodes and edges.
 class GraphData {
+  /// All reacton nodes in the graph.
   final List<GraphNodeData> nodes;
+
+  /// All dependency edges between nodes.
   final List<GraphEdgeData> edges;
   const GraphData({required this.nodes, required this.edges});
 }
 
+/// A single node in the reactive dependency graph.
 class GraphNodeData {
   final int id;
   final String name;
@@ -122,8 +127,12 @@ class GraphNodeData {
       );
 }
 
+/// A directed edge representing a dependency between two graph nodes.
 class GraphEdgeData {
+  /// The source node id.
   final int from;
+
+  /// The target node id.
   final int to;
   const GraphEdgeData({required this.from, required this.to});
 
@@ -133,6 +142,7 @@ class GraphEdgeData {
       );
 }
 
+/// The current value of a single reacton.
 class ReactonValueData {
   final int refId;
   final String value;
@@ -152,6 +162,7 @@ class ReactonValueData {
       );
 }
 
+/// Summary of a reacton for list display in the inspector.
 class ReactonListEntry {
   final int id;
   final String name;
@@ -177,6 +188,7 @@ class ReactonListEntry {
       );
 }
 
+/// Aggregate statistics for the reactive store.
 class StoreStats {
   final int reactonCount;
   final int nodeCount;

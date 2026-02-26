@@ -4,7 +4,7 @@ import 'package:args/command_runner.dart';
 import '../templates/reacton_template.dart';
 import '../templates/feature_template.dart';
 
-/// Command: reacton create reacton|computed|async|selector|family|feature <name>
+/// Command: `reacton create reacton|computed|async|selector|family|feature <name>`
 ///
 /// Scaffolds files from templates.
 class CreateCommand extends Command<void> {

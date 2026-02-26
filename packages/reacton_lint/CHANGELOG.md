@@ -1,3 +1,7 @@
+## 0.1.2
+
+- Maintenance release with version bump
+
 ## 0.1.1
 
 - Add example file for pub.dev scoring

@@ -1,3 +1,7 @@
+## 0.1.2
+
+- Fix angle bracket HTML warning in documentation comments
+
 ## 0.1.1
 
 - Add example file for pub.dev scoring

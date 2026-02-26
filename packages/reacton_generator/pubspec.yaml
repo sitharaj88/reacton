@@ -2,7 +2,7 @@ name: reacton_generator
 description: >
   Code generation for Reacton. Generates serializers, analyzes dependency
   graphs, and detects dead reactons at build time.
-version: 0.1.1
+version: 0.1.2
 homepage: https://github.com/sitharaj88/reacton
 repository: https://github.com/sitharaj88/reacton
 issue_tracker: https://github.com/sitharaj88/reacton/issues
