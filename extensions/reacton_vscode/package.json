@@ -1,0 +1,183 @@
+{
+  "name": "reacton-vscode",
+  "displayName": "Reacton State Management",
+  "description": "Enterprise-grade VS Code extension for Reacton - reactive state management for Flutter. Provides code lens, hover info, dependency graph, diagnostics, snippets, and more.",
+  "version": "0.1.0",
+  "publisher": "sitharaj",
+  "icon": "images/reacton-logo.png",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Snippets",
+    "Programming Languages",
+    "Linters",
+    "Other"
+  ],
+  "keywords": [
+    "flutter",
+    "dart",
+    "state-management",
+    "reacton",
+    "reactive",
+    "state",
+    "atom"
+  ],
+  "activationEvents": [
+    "workspaceContains:pubspec.yaml"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "snippets": [
+      {
+        "language": "dart",
+        "path": "./snippets/reacton.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "reacton.showGraph",
+        "title": "Reacton: Show Dependency Graph",
+        "icon": "$(graph)"
+      },
+      {
+        "command": "reacton.refreshGraph",
+        "title": "Reacton: Refresh Dependency Graph",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "reacton.goToReacton",
+        "title": "Reacton: Go to Reacton...",
+        "icon": "$(search)"
+      },
+      {
+        "command": "reacton.showDependencyChain",
+        "title": "Reacton: Show Dependency Chain",
+        "icon": "$(list-tree)"
+      },
+      {
+        "command": "reacton.wrapWithReactonBuilder",
+        "title": "Reacton: Wrap with ReactonBuilder"
+      },
+      {
+        "command": "reacton.wrapWithReactonConsumer",
+        "title": "Reacton: Wrap with ReactonConsumer"
+      },
+      {
+        "command": "reacton.wrapWithReactonScope",
+        "title": "Reacton: Wrap with ReactonScope"
+      },
+      {
+        "command": "reacton.findReferences",
+        "title": "Reacton: Find All References"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "reactonExplorer",
+          "name": "Reacton States",
+          "when": "reacton.isActive",
+          "icon": "$(symbol-variable)"
+        }
+      ]
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "command": "reacton.wrapWithReactonBuilder",
+          "when": "editorLangId == dart && editorHasSelection",
+          "group": "reacton@1"
+        },
+        {
+          "command": "reacton.wrapWithReactonConsumer",
+          "when": "editorLangId == dart && editorHasSelection",
+          "group": "reacton@2"
+        },
+        {
+          "command": "reacton.wrapWithReactonScope",
+          "when": "editorLangId == dart && editorHasSelection",
+          "group": "reacton@3"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "reacton.refreshGraph",
+          "when": "view == reactonExplorer",
+          "group": "navigation"
+        },
+        {
+          "command": "reacton.showGraph",
+          "when": "view == reactonExplorer",
+          "group": "navigation"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "reacton.goToReacton",
+        "key": "ctrl+shift+r",
+        "mac": "cmd+shift+r",
+        "when": "editorLangId == dart"
+      },
+      {
+        "command": "reacton.showGraph",
+        "key": "ctrl+shift+g",
+        "mac": "cmd+shift+g",
+        "when": "reacton.isActive"
+      }
+    ],
+    "configuration": {
+      "title": "Reacton",
+      "properties": {
+        "reacton.showCodeLens": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show code lens above Reacton declarations (type info, dependencies, graph link)"
+        },
+        "reacton.showDiagnostics": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show diagnostics for common Reacton anti-patterns (missing names, reacton in build, circular deps)"
+        },
+        "reacton.showStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show Reacton count in the status bar"
+        },
+        "reacton.autoRefreshGraph": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically refresh the dependency graph and explorer on file save"
+        },
+        "reacton.graphLayout": {
+          "type": "string",
+          "default": "hierarchical",
+          "enum": [
+            "hierarchical",
+            "force-directed"
+          ],
+          "description": "Layout algorithm for the dependency graph visualization"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTests.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "@types/node": "^20.0.0",
+    "@types/mocha": "^10.0.0",
+    "@vscode/test-electron": "^2.3.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "mocha": "^10.0.0",
+    "typescript": "^5.0.0"
+  }
+}

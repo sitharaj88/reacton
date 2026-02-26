@@ -1,0 +1,2 @@
+# Override: examples should commit their lock files
+!pubspec.lock

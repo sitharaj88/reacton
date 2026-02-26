@@ -1,0 +1,26 @@
+name: reacton_cli
+description: >
+  CLI tool for Reacton state management. Scaffold reactons, analyze dependency
+  graphs, and diagnose common issues.
+version: 0.1.0
+publish_to: none
+homepage: https://github.com/sitharaj/reacton
+repository: https://github.com/sitharaj/reacton
+issue_tracker: https://github.com/sitharaj/reacton/issues
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  args: ^2.4.0
+  path: ^1.8.0
+  yaml: ^3.1.0
+  reacton:
+    path: ../reacton
+
+dev_dependencies:
+  test: ^1.24.0
+  lints: ^3.0.0
+
+executables:
+  reacton: reacton_cli

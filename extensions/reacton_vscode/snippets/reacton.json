@@ -1,0 +1,290 @@
+{
+  "Reacton State": {
+    "prefix": ["rreacton", "reacton"],
+    "body": [
+      "final ${1:name}Reacton = reacton<${2:Type}>(${3:initialValue}, name: '${1:name}');"
+    ],
+    "description": "Create a writable Reacton"
+  },
+  "Reacton Computed": {
+    "prefix": ["rcomputed", "computed"],
+    "body": [
+      "final ${1:name}Reacton = computed<${2:Type}>(",
+      "  (read) => ${3:expression},",
+      "  name: '${1:name}',",
+      ");"
+    ],
+    "description": "Create a computed Reacton"
+  },
+  "Reacton Computed (multiline)": {
+    "prefix": "rcomputedm",
+    "body": [
+      "final ${1:name}Reacton = computed<${2:Type}>(",
+      "  (read) {",
+      "    ${3:// read dependencies and compute}",
+      "    return ${4:value};",
+      "  },",
+      "  name: '${1:name}',",
+      ");"
+    ],
+    "description": "Create a computed Reacton with multiline body"
+  },
+  "Reacton Async": {
+    "prefix": ["rasync", "asyncReacton"],
+    "body": [
+      "final ${1:name}Reacton = asyncReacton<${2:Type}>(",
+      "  (read) async {",
+      "    ${3:// fetch data}",
+      "    return ${4:value};",
+      "  },",
+      "  name: '${1:name}',",
+      ");"
+    ],
+    "description": "Create an async Reacton"
+  },
+  "Reacton Family": {
+    "prefix": ["rfamily", "family"],
+    "body": [
+      "final ${1:name}Family = family<${2:Type}, ${3:ArgType}>(",
+      "  (arg) => reacton<${2:Type}>(${4:initialValue}, name: '${1:name}_\\$arg'),",
+      ");"
+    ],
+    "description": "Create a Reacton family"
+  },
+  "Reacton Effect": {
+    "prefix": ["reffect", "createEffect"],
+    "body": [
+      "final ${1:name}Effect = createEffect(",
+      "  store,",
+      "  (read) {",
+      "    final value = read(${2:reacton});",
+      "    ${3:// side effect}",
+      "  },",
+      "  name: '${1:name}',",
+      ");"
+    ],
+    "description": "Create a Reacton effect"
+  },
+  "Reacton Selector": {
+    "prefix": ["rselector", "selector"],
+    "body": [
+      "final ${1:name}Selector = selector<${2:SourceType}, ${3:SelectedType}>(",
+      "  ${4:sourceReacton},",
+      "  (value) => value.${5:field},",
+      "  name: '${1:name}',",
+      ");"
+    ],
+    "description": "Create a Reacton selector"
+  },
+  "Reacton State Machine": {
+    "prefix": ["rstatemachine", "stateMachine"],
+    "body": [
+      "final ${1:name}Machine = stateMachine<${2:State}, ${3:Event}>(",
+      "  initial: ${2:State}.${4:initial},",
+      "  transitions: {",
+      "    ${2:State}.${4:initial}: {",
+      "      ${3:Event}.${5:event}: (_) => ${2:State}.${6:nextState},",
+      "    },",
+      "  },",
+      "  name: '${1:name}',",
+      ");"
+    ],
+    "description": "Create a Reacton state machine"
+  },
+  "Reacton Query": {
+    "prefix": ["rquery", "queryAtom"],
+    "body": [
+      "final ${1:name}Query = queryAtom<${2:Type}>(",
+      "  queryFn: (context) async {",
+      "    ${3:// fetch data}",
+      "    return ${4:value};",
+      "  },",
+      "  staleTime: Duration(minutes: ${5:5}),",
+      "  name: '${1:name}',",
+      ");"
+    ],
+    "description": "Create a Reacton query atom"
+  },
+  "ReactonScope Widget": {
+    "prefix": ["rscope", "ReactonScope"],
+    "body": [
+      "ReactonScope(",
+      "  store: ${1:store},",
+      "  child: ${2:child},",
+      ")"
+    ],
+    "description": "Wrap widget with ReactonScope"
+  },
+  "ReactonBuilder Widget": {
+    "prefix": ["rbuilder", "ReactonBuilder"],
+    "body": [
+      "ReactonBuilder<${1:Type}>(",
+      "  reacton: ${2:reacton},",
+      "  builder: (context, value) {",
+      "    return ${3:Widget()};",
+      "  },",
+      ")"
+    ],
+    "description": "Create a ReactonBuilder widget"
+  },
+  "ReactonConsumer Widget": {
+    "prefix": ["rconsumer", "ReactonConsumer"],
+    "body": [
+      "ReactonConsumer(",
+      "  builder: (context, ref) {",
+      "    final ${1:value} = ref.watch(${2:reacton});",
+      "    return ${3:Widget()};",
+      "  },",
+      ")"
+    ],
+    "description": "Create a ReactonConsumer widget"
+  },
+  "ReactonListener Widget": {
+    "prefix": ["rlistener", "ReactonListener"],
+    "body": [
+      "ReactonListener<${1:Type}>(",
+      "  reacton: ${2:reacton},",
+      "  onChanged: (context, value) {",
+      "    ${3:// handle change}",
+      "  },",
+      "  child: ${4:child},",
+      ")"
+    ],
+    "description": "Create a ReactonListener widget"
+  },
+  "ReactonSelector Widget": {
+    "prefix": ["rselectorw", "ReactonSelector"],
+    "body": [
+      "ReactonSelector<${1:Type}, ${2:SelectedType}>(",
+      "  reacton: ${3:reacton},",
+      "  selector: (value) => value.${4:field},",
+      "  builder: (context, selected) {",
+      "    return ${5:Widget()};",
+      "  },",
+      ")"
+    ],
+    "description": "Create a ReactonSelector widget"
+  },
+  "Context Watch": {
+    "prefix": ["rwatch", "context.watch"],
+    "body": [
+      "final ${1:value} = context.watch(${2:reacton});"
+    ],
+    "description": "Watch a Reacton with context extension"
+  },
+  "Context Read": {
+    "prefix": ["rread", "context.read"],
+    "body": [
+      "final ${1:value} = context.read(${2:reacton});"
+    ],
+    "description": "Read a Reacton with context extension"
+  },
+  "Context Set": {
+    "prefix": ["rset", "context.set"],
+    "body": [
+      "context.set(${1:reacton}, ${2:value});"
+    ],
+    "description": "Set a Reacton value with context extension"
+  },
+  "Context Update": {
+    "prefix": ["rupdate", "context.update"],
+    "body": [
+      "context.update(${1:reacton}, (current) => ${2:newValue});"
+    ],
+    "description": "Update a Reacton value with context extension"
+  },
+  "Reacton Middleware": {
+    "prefix": ["rmiddleware", "Middleware"],
+    "body": [
+      "class ${1:Name}Middleware<T> extends Middleware<T> {",
+      "  @override",
+      "  T onBeforeWrite(ReactonBase<T> reacton, T currentValue, T newValue) {",
+      "    ${2:// transform or validate}",
+      "    return newValue;",
+      "  }",
+      "",
+      "  @override",
+      "  void onAfterWrite(ReactonBase<T> reacton, T value) {",
+      "    ${3:// side effect after write}",
+      "  }",
+      "}"
+    ],
+    "description": "Create a Reacton middleware"
+  },
+  "Reacton Test Setup": {
+    "prefix": ["rtestsetup", "TestReactonStore"],
+    "body": [
+      "late TestReactonStore store;",
+      "",
+      "setUp(() {",
+      "  store = TestReactonStore();",
+      "});",
+      "",
+      "tearDown(() {",
+      "  store.dispose();",
+      "});"
+    ],
+    "description": "Setup Reacton test store"
+  },
+  "Async Value When": {
+    "prefix": ["rawhen", "asyncValue.when"],
+    "body": [
+      "${1:asyncValue}.when(",
+      "  loading: () => ${2:const CircularProgressIndicator()},",
+      "  data: (data) => ${3:Text(data.toString())},",
+      "  error: (error, stack) => ${4:Text('Error: \\$error')},",
+      ")"
+    ],
+    "description": "Pattern match on AsyncValue"
+  },
+  "Reacton Module": {
+    "prefix": ["rmodule", "AtomModule"],
+    "body": [
+      "class ${1:Name}Module extends AtomModule {",
+      "  late final ${2:items} = register(reacton<${3:List<Item>>}(${4:[]}, name: '${1:name}.${2:items}'));",
+      "",
+      "  @override",
+      "  void onInit() {",
+      "    ${5:// initialize module}",
+      "  }",
+      "",
+      "  @override",
+      "  void onDispose() {",
+      "    ${6:// cleanup}",
+      "  }",
+      "}"
+    ],
+    "description": "Create a Reacton module"
+  },
+  "Reacton Form": {
+    "prefix": ["rform", "formAtom"],
+    "body": [
+      "final ${1:name}Form = formAtom({",
+      "  '${2:email}': fieldAtom('', validators: [required${3:, email}]),",
+      "  '${4:password}': fieldAtom('', validators: [required${5:, minLength(8)}]),",
+      "}, name: '${1:name}Form');"
+    ],
+    "description": "Create a Reacton form atom"
+  },
+  "Reacton Store": {
+    "prefix": ["rstore", "ReactonStore"],
+    "body": [
+      "final store = ReactonStore();"
+    ],
+    "description": "Create a ReactonStore instance"
+  },
+  "Reacton Import": {
+    "prefix": "rimport",
+    "body": [
+      "import 'package:reacton/reacton.dart';"
+    ],
+    "description": "Import Reacton package"
+  },
+  "Flutter Reacton Import": {
+    "prefix": "rimportf",
+    "body": [
+      "import 'package:flutter_reacton/flutter_reacton.dart';"
+    ],
+    "description": "Import Flutter Reacton package"
+  }
+}

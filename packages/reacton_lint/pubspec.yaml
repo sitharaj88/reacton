@@ -1,0 +1,20 @@
+name: reacton_lint
+description: >
+  Custom lint rules for Reacton state management. Detects common mistakes
+  like creating reactons in build(), using context.read() in build(),
+  and patterns that should use computed().
+version: 0.1.0
+homepage: https://github.com/sitharaj/reacton
+repository: https://github.com/sitharaj/reacton
+issue_tracker: https://github.com/sitharaj/reacton/issues
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  custom_lint_builder: ^0.6.0
+  analyzer: ^6.0.0
+
+dev_dependencies:
+  test: ^1.24.0
+  lints: ^3.0.0

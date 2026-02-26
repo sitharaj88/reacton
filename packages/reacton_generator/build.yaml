@@ -1,0 +1,24 @@
+builders:
+  reacton_serializer:
+    import: "package:reacton_generator/reacton_generator.dart"
+    builder_factories: ["reactonSerializerBuilder"]
+    build_extensions: {".dart": [".reacton.g.dart"]}
+    auto_apply: dependents
+    build_to: source
+    required_inputs: [".dart"]
+    applies_builders: ["source_gen|combining_builder"]
+
+  reacton_graph_analyzer:
+    import: "package:reacton_generator/reacton_generator.dart"
+    builder_factories: ["reactonGraphAnalyzerBuilder"]
+    build_extensions: {".dart": [".reacton_graph.json"]}
+    auto_apply: dependents
+    build_to: cache
+    runs_before: ["reacton_generator|reacton_collector"]
+
+  reacton_collector:
+    import: "package:reacton_generator/reacton_generator.dart"
+    builder_factories: ["reactonCollectorBuilder"]
+    build_extensions: {"lib/$lib$": ["lib/reacton_graph.json"]}
+    auto_apply: dependents
+    build_to: cache

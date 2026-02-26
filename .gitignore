@@ -1,0 +1,41 @@
+# Dart/Flutter
+.dart_tool/
+.packages
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Pub
+.pub-cache/
+.pub/
+pubspec.lock
+pubspec_overrides.yaml
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+
+# Node (docs-site & VitePress)
+node_modules/
+docs/.vitepress/dist/
+docs/.vitepress/cache/
+
+# Coverage
+coverage/
+.test_coverage/
+
+# Generated
+*.g.dart
+*.freezed.dart
+*.mocks.dart
+*.pulse_graph.json
+
+# OS
+Thumbs.db
+*.log
