@@ -22,7 +22,7 @@ class AvoidReactonInBuild extends DartLintRule {
   @override
   void run(
     CustomLintResolver resolver,
-    ErrorReporter reporter,
+    DiagnosticReporter reporter,
     CustomLintContext context,
   ) {
     context.registry.addMethodDeclaration((node) {
@@ -39,7 +39,7 @@ class AvoidReactonInBuild extends DartLintRule {
 }
 
 class _ReactonCallVisitor extends RecursiveAstVisitor<void> {
-  final ErrorReporter reporter;
+  final DiagnosticReporter reporter;
 
   _ReactonCallVisitor(this.reporter);
 
@@ -47,7 +47,7 @@ class _ReactonCallVisitor extends RecursiveAstVisitor<void> {
   void visitMethodInvocation(MethodInvocation node) {
     final name = node.methodName.name;
     if (name == 'reacton' || name == 'computed' || name == 'asyncReacton' || name == 'family') {
-      reporter.reportErrorForNode(AvoidReactonInBuild._code, node);
+      reporter.atNode(node, AvoidReactonInBuild._code);
     }
     super.visitMethodInvocation(node);
   }

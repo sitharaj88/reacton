@@ -37,7 +37,7 @@ class ItemsMoved<T> extends CollectionChange<T> {
   const ItemsMoved(this.from, this.to);
 }
 
-/// A writable reacton that holds a List<T> with granular collection operations.
+/// A writable reacton that holds a `List<T>` with granular collection operations.
 ///
 /// Instead of replacing the entire list on every change, you can use
 /// targeted operations like add, remove, update, insert that emit

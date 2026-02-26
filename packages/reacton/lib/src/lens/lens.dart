@@ -86,9 +86,9 @@ void Function(void Function<V>(WritableReacton<V>, V), T) _buildOnWrite<S, T>(
 
 /// A bidirectional, reactive lens that focuses on a part of a reacton's state.
 ///
-/// `ReactonLens<S, T>` reads from and writes to a [WritableReacton<S>] by
+/// `ReactonLens<S, T>` reads from and writes to a [WritableReacton] by
 /// extracting a value of type `T` via [getter] and producing an updated `S`
-/// via [setter]. Because it extends [WritableReacton<T>], it plugs directly
+/// via [setter]. Because it extends [WritableReacton], it plugs directly
 /// into the existing store infrastructure -- `store.get()`, `store.set()`,
 /// `store.subscribe()`, and Flutter's `context.watch()` / `context.set()`
 /// all work without modification.

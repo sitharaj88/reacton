@@ -29,7 +29,7 @@ List<ReactonDeclaration> analyzeSource(
             final deps = _extractDependencies(initializer);
             reactons.add(ReactonDeclaration(
               name: variable.name.lexeme,
-              type: variable.declaredElement?.type.toString() ?? 'dynamic',
+              type: variable.declaredFragment?.element.type.toString() ?? 'dynamic',
               reactonKind: reactonKind,
               source: path,
               dependencies: deps,

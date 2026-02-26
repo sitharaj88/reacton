@@ -22,7 +22,7 @@ class AvoidReadInBuild extends DartLintRule {
   @override
   void run(
     CustomLintResolver resolver,
-    ErrorReporter reporter,
+    DiagnosticReporter reporter,
     CustomLintContext context,
   ) {
     context.registry.addMethodDeclaration((node) {
@@ -37,7 +37,7 @@ class AvoidReadInBuild extends DartLintRule {
 }
 
 class _ReadCallVisitor extends RecursiveAstVisitor<void> {
-  final ErrorReporter reporter;
+  final DiagnosticReporter reporter;
 
   _ReadCallVisitor(this.reporter);
 
@@ -49,7 +49,7 @@ class _ReadCallVisitor extends RecursiveAstVisitor<void> {
       if (target is SimpleIdentifier && target.name == 'context') {
         // Check if inside a callback (onPressed, etc.) - that's OK
         if (!_isInsideCallback(node)) {
-          reporter.reportErrorForNode(AvoidReadInBuild._code, node);
+          reporter.atNode(node, AvoidReadInBuild._code);
         }
       }
     }

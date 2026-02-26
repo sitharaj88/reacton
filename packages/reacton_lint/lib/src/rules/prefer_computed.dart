@@ -22,7 +22,7 @@ class PreferComputed extends DartLintRule {
   @override
   void run(
     CustomLintResolver resolver,
-    ErrorReporter reporter,
+    DiagnosticReporter reporter,
     CustomLintContext context,
   ) {
     context.registry.addMethodDeclaration((node) {
@@ -37,7 +37,7 @@ class PreferComputed extends DartLintRule {
 
       // If there are 3+ watches in a single build, suggest computed
       if (counter.count >= 3) {
-        reporter.reportErrorForNode(_code, node);
+        reporter.atNode(node, _code);
       }
     });
   }

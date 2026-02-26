@@ -71,7 +71,7 @@ class ReactonGraphAnalyzerBuilder implements Builder {
               final deps = _extractDependencies(initializer);
               reactons.add(ReactonDeclaration(
                 name: variable.name.lexeme,
-                type: variable.declaredElement?.type.toString() ?? 'dynamic',
+                type: variable.declaredFragment?.element.type.toString() ?? 'dynamic',
                 reactonKind: reactonKind,
                 source: inputId.path,
                 dependencies: deps,

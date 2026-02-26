@@ -31,7 +31,7 @@ class MapCleared<K, V> extends MapChange<K, V> {
   const MapCleared(this.previousEntries);
 }
 
-/// A writable reacton that holds a Map<K, V> with granular operations.
+/// A writable reacton that holds a `Map<K, V>` with granular operations.
 ///
 /// ```dart
 /// final usersReacton = reactonMap<String, User>({}, name: 'users');

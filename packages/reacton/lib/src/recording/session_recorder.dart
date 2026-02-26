@@ -64,7 +64,7 @@ class StateEvent {
   /// The numeric identifier of the [ReactonRef] that changed.
   final int refId;
 
-  /// The debug name of the reacton, or `'reacton_<id>'` if unnamed.
+  /// The debug name of the reacton, or `'reacton_{id}'` if unnamed.
   final String refName;
 
   /// The value before this mutation (JSON-encodable).
