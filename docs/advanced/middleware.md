@@ -243,6 +243,137 @@ Global Middleware (type-matched) → Per-Reacton Middleware → Store Write
 3. Each middleware can modify the value or throw to reject.
 4. After the write, `onAfterWrite` is called in the same order.
 
+## Built-in: PersistenceMiddleware
+
+`PersistenceMiddleware<T>` auto-persists reacton values through the middleware lifecycle. It loads the stored value on initialization (`onInit`) and saves the new value after every write (`onAfterWrite`). If deserialization fails (e.g., stale data after a schema change), the reacton silently falls back to its initial value.
+
+```dart
+class PersistenceMiddleware<T> extends Middleware<T> {
+  PersistenceMiddleware({
+    required StorageAdapter storage,
+    required Serializer<T> serializer,
+    required String key,
+  });
+}
+```
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `storage` | `StorageAdapter` | The storage backend (e.g., `MemoryStorage`, `SharedPrefsStorage`). |
+| `serializer` | `Serializer<T>` | Converts values to/from strings for storage. |
+| `key` | `String` | The storage key used to read and write the persisted value. |
+
+### JsonPersistenceMiddleware
+
+`JsonPersistenceMiddleware<T>` is a convenience subclass that wraps a `JsonSerializer` internally, so you can pass `toJson` and `fromJson` callbacks directly instead of constructing a serializer yourself.
+
+```dart
+class JsonPersistenceMiddleware<T> extends PersistenceMiddleware<T> {
+  JsonPersistenceMiddleware({
+    required StorageAdapter storage,
+    required String key,
+    required Map<String, dynamic> Function(T) toJson,
+    required T Function(Map<String, dynamic>) fromJson,
+  });
+}
+```
+
+### PersistenceMiddleware Example
+
+```dart
+// Using PersistenceMiddleware with MemoryStorage (useful for tests)
+final storage = MemoryStorage();
+
+final counterReacton = reacton(0, options: ReactonOptions(
+  middleware: [
+    PersistenceMiddleware<int>(
+      storage: storage,
+      serializer: PrimitiveSerializer<int>(),
+      key: 'counter',
+    ),
+  ],
+));
+
+// For JSON-serializable objects, use JsonPersistenceMiddleware
+final settingsReacton = reacton(
+  Settings.defaults(),
+  options: ReactonOptions(
+    middleware: [
+      JsonPersistenceMiddleware<Settings>(
+        storage: storage,
+        key: 'app_settings',
+        toJson: (s) => s.toJson(),
+        fromJson: (json) => Settings.fromJson(json),
+      ),
+    ],
+  ),
+);
+```
+
+### When to Use PersistenceMiddleware vs Manual Persistence
+
+Reacton offers two ways to persist state: `ReactonOptions.persistKey` + `serializer` (configured on the store's `StorageAdapter`) and `PersistenceMiddleware` (attached per-reacton as middleware). Choose based on your needs:
+
+| | Manual (`persistKey` + `serializer`) | `PersistenceMiddleware` |
+|---|---|---|
+| **Storage backend** | Single `StorageAdapter` on the store, shared by all persisted reactons. | Each middleware instance carries its own `StorageAdapter` reference -- different reactons can use different backends. |
+| **Configuration** | Set in `ReactonOptions` fields. Requires a `StorageAdapter` on the store. | Set as a middleware entry. No store-level storage adapter needed. |
+| **Flexibility** | Good for apps with one storage backend. | Better when you need per-reacton storage backends, or want to compose persistence with other middleware. |
+| **Testability** | Must configure the store with a `MemoryStorage`. | Pass `MemoryStorage` directly to the middleware -- no store-level setup required. |
+
+::: tip
+If all your persisted reactons use the same storage backend, the manual `persistKey` approach is simpler. Reach for `PersistenceMiddleware` when you need per-reacton storage flexibility or want persistence as part of a middleware pipeline.
+:::
+
+## Built-in: DevToolsMiddleware
+
+`DevToolsMiddleware<T>` sends state changes to the Dart DevTools extension. It emits timeline events on writes and posts service extension events that the Reacton DevTools panel consumes for the state timeline view. Errors are also reported as DevTools events.
+
+```dart
+class DevToolsMiddleware<T> extends Middleware<T> {
+  DevToolsMiddleware();
+}
+```
+
+### What It Reports
+
+| Event | DevTools Output |
+|-------|----------------|
+| Before Write | Starts a timeline sync event named `Reacton: <ref>` with old and new values. |
+| After Write | Finishes the timeline event and posts a `reacton.stateChange` event with the reacton ref, id, value, and timestamp. |
+| Error | Posts a `reacton.error` event with the reacton ref, id, error, and stack trace. |
+
+### When to Use
+
+Use `DevToolsMiddleware` during development and debug builds to inspect state changes in real time. Remove or disable it in release builds to avoid unnecessary overhead.
+
+::: warning
+`DevToolsMiddleware` uses `dart:developer` APIs (`Timeline` and `postEvent`) which have no effect in release mode, but the middleware still runs its logic. For best performance in production, exclude it from your middleware lists in release builds.
+:::
+
+### DevToolsMiddleware Example
+
+```dart
+import 'package:flutter/foundation.dart';
+
+final counterReacton = reacton(0, options: ReactonOptions(
+  middleware: [
+    if (kDebugMode) DevToolsMiddleware<int>(),
+  ],
+));
+
+// Or apply globally to all reactons during development
+final store = ReactonStore(
+  globalMiddleware: [
+    if (kDebugMode) DevToolsMiddleware<dynamic>(),
+  ],
+);
+```
+
+::: tip
+Use `DevToolsMiddleware<dynamic>` as global middleware to capture state changes from all reactons regardless of their value type.
+:::
+
 ## What's Next
 
 - [Persistence](/advanced/persistence) -- Auto-save state to disk using serializers and storage adapters

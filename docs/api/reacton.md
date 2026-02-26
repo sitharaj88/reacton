@@ -471,7 +471,373 @@ typedef TransitionEffect<S> = void Function(S previousState, S newState);
 
 ---
 
+## Lenses
+
+Bidirectional optics for focusing on sub-values of a reacton's state.
+
+### ReactonLens\<S, T\>
+
+A bidirectional focus into a reacton's state. Reads a sub-value and writes back via a setter.
+
+| Member | Type | Description |
+|--------|------|-------------|
+| `source` | `WritableReacton<S>` | The source reacton |
+| `getter` | `T Function(S)` | Extract focused value |
+| `setter` | `S Function(S, T)` | Create new source value with updated focus |
+| `equals` | `bool Function(T, T)?` | Custom equality for the focused value |
+| `then<C>({get, set})` | `ComposedLens<S, T, C>` | Chain with another lens for deeper focusing |
+
+### Lens Factory Functions
+
+| Function | Signature | Description |
+|----------|-----------|-------------|
+| `lens<S, T>()` | `ReactonLens<S, T> lens<S, T>(WritableReacton<S> source, T Function(S) get, S Function(S, T) set, {String? name, bool Function(T, T)? equals})` | Create a basic lens |
+| `listLens<T>()` | `ListItemLens<T> listLens<T>(WritableReacton<List<T>> source, int index, {String? name})` | Focus on a list item by index |
+| `mapLens<K, V>()` | `MapEntryLens<K, V> mapLens<K, V>(WritableReacton<Map<K, V>> source, K key, {String? name})` | Focus on a map entry by key |
+| `filteredListLens<T>()` | `FilteredListLens<T> filteredListLens<T>(WritableReacton<List<T>> source, bool Function(T) predicate, {String? name, bool Function(List<T>, List<T>)? equals})` | Focus on a filtered list subset |
+
+### Store Lens Extensions
+
+| Method | Signature | Description |
+|--------|-----------|-------------|
+| `read<S, T>()` | `T` | Read the focused value through the lens |
+| `write<S, T>()` | `void` | Write a new value through the lens |
+| `modify<S, T>()` | `void` | Update the focused value via a function |
+| `subscribeLens<S, T>()` | `Unsubscribe` | Subscribe to changes of the focused value |
+| `removeLens<S, T>()` | `void` | Cleanup lens resources |
+
+### Lens Composition Extensions
+
+| Method | Signature | Description |
+|--------|-----------|-------------|
+| `item<E>(index)` | `ComposedLens<S, List<E>, E>` | Compose lens to focus on a list item |
+| `entry<K, V>(key)` | `ComposedLens<S, Map<K, V>, V?>` | Compose lens to focus on a map entry |
+
+---
+
+## Interceptors
+
+Lightweight value transformers and gates (simpler alternative to full middleware).
+
+### Interceptor\<T\>
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `name` | `String` | Debug name |
+| `onWrite` | `T Function(T)?` | Transform the value on write |
+| `onRead` | `T Function(T)?` | Transform the value on read |
+| `shouldUpdate` | `bool Function(T, T)?` | Gate function: return `false` to block the update |
+
+### InterceptorChain\<T\>
+
+| Method | Signature | Description |
+|--------|-----------|-------------|
+| `executeWrite(old, new)` | `(bool, T)` | Run write interceptors; returns (shouldUpdate, transformedValue) |
+| `executeRead(value)` | `T` | Run read interceptors; returns transformed value |
+
+---
+
+## Debounce & Throttle
+
+Rate-limiting utilities for controlling execution frequency.
+
+### Debouncer
+
+Delays execution until a period of inactivity. Useful for search-as-you-type.
+
+| Member | Type | Description |
+|--------|------|-------------|
+| `duration` | `Duration` | The debounce period |
+| `run(callback)` | `void` | Schedule callback (cancels previous pending call) |
+| `cancel()` | `void` | Cancel any pending execution |
+| `isPending` | `bool` | Whether a call is pending |
+| `dispose()` | `void` | Cancel and cleanup |
+
+### Throttler
+
+Limits execution to at most once per duration. Useful for scroll/resize handlers.
+
+| Member | Type | Description |
+|--------|------|-------------|
+| `duration` | `Duration` | The throttle period |
+| `run(callback)` | `void` | Execute immediately if not throttled, otherwise queue |
+| `cancel()` | `void` | Cancel any pending execution |
+| `dispose()` | `void` | Cancel and cleanup |
+
+---
+
+## Sagas
+
+Redux-saga inspired effect orchestration for complex async flows.
+
+### Saga Factory
+
+```dart
+Saga<E> saga<E>({String? name, required void Function(SagaBuilder<E>) builder})
+```
+
+### SagaBuilder\<E\>
+
+DSL for registering event handlers within a saga.
+
+| Method | Description |
+|--------|-------------|
+| `on<S extends E>(handler)` | Handle the first matching event (takeOnce) |
+| `onEvery<S extends E>(handler)` | Handle every event concurrently (takeEvery) |
+| `onLatest<S extends E>(handler)` | Handle latest only, cancel previous (takeLatest) |
+| `onLeading<S extends E>(handler)` | Ignore new events while one is running (takeLeading) |
+
+### SagaContext
+
+API available inside saga handlers.
+
+| Method | Signature | Description |
+|--------|-----------|-------------|
+| `take<E>()` | `Future<E>` | Wait for the next event of type E |
+| `put<T>()` | `void` | Write a value to a reacton |
+| `call<T>()` | `Future<T>` | Execute an async function with cancellation |
+| `fork()` | `SagaTask` | Fork a child saga |
+| `join()` | `Future<void>` | Wait for a forked task to complete |
+| `cancelTask()` | `void` | Cancel a forked task |
+| `delay()` | `Future<void>` | Suspend for a duration |
+| `race<T>()` | `Future<Map<String, T>>` | Race multiple async effects |
+| `all<T>()` | `Future<List<T>>` | Run multiple effects in parallel |
+| `select<T>()` | `T` | Read a reacton value |
+
+### SagaTask
+
+| Member | Type | Description |
+|--------|------|-------------|
+| `id` | `int` | Unique task ID |
+| `name` | `String?` | Optional debug name |
+| `isRunning` | `bool` | Whether the task is running |
+| `isCompleted` | `bool` | Whether the task completed |
+| `isCancelled` | `bool` | Whether the task was cancelled |
+| `result` | `Future<void>` | Completion future |
+| `cancel()` | `void` | Cancel the task (cascades to children) |
+
+### HandlerStrategy
+
+| Value | Description |
+|-------|-------------|
+| `takeOnce` | Handle only the first matching event |
+| `takeEvery` | Handle every event concurrently |
+| `takeLatest` | Cancel the previous handler when a new event arrives |
+| `takeLeading` | Ignore new events while one is being handled |
+
+### Store Saga Extensions
+
+| Method | Signature | Description |
+|--------|-----------|-------------|
+| `runSaga<E>()` | `SagaTask` | Start a saga and return the running task |
+| `dispatch<E>()` | `void` | Dispatch an event to all running sagas |
+
+---
+
+## Collaborative (CRDT)
+
+Conflict-free Replicated Data Types for distributed state synchronization.
+
+### VectorClock
+
+Causal ordering across distributed nodes.
+
+| Member | Type | Description |
+|--------|------|-------------|
+| `entries` | `Map<String, int>` | Node IDs mapped to counters |
+| `operator[](nodeId)` | `int` | Get counter for a node |
+| `increment(nodeId)` | `VectorClock` | Return new clock with incremented counter |
+| `merge(other)` | `VectorClock` | Return new clock with pointwise max |
+| `happensBefore(other)` | `bool` | Causal precedence check |
+| `isConcurrent(other)` | `bool` | Whether events are concurrent |
+| `sum` | `int` | Total events metric |
+| `toJson()` | `Map<String, dynamic>` | Serialize |
+
+### CrdtValue\<T\>
+
+A value with CRDT metadata attached.
+
+| Member | Type | Description |
+|--------|------|-------------|
+| `value` | `T` | The application value |
+| `clock` | `VectorClock` | Causal history |
+| `nodeId` | `String` | Source node ID |
+| `timestamp` | `int` | Wall-clock timestamp (tiebreaker) |
+
+### Merge Strategies
+
+| Class | Description |
+|-------|-------------|
+| `LastWriterWins<T>` | Most recent wall-clock timestamp wins (default tiebreaker: lexicographic node ID) |
+| `MaxValue<T>` | Numerically larger value wins (requires `Comparable<T>`) |
+| `UnionMerge<T>` | Set union (for GSet-like behavior, requires `Set`) |
+| `CustomMerge<T>` | User-provided deterministic merge function |
+
+### CollaborativeReacton\<T\>
+
+A reacton that syncs across peers via CRDT. Extends `WritableReacton<T>`.
+
+| Member | Type | Description |
+|--------|------|-------------|
+| `collaborativeName` | `String` | Name for sync identification |
+| `strategy` | `CrdtMergeStrategy<T>` | Merge strategy for conflicts |
+| `serializer` | `Serializer<T>?` | JSON serializer |
+
+### CollaborativeSession
+
+Manages a CRDT sync session with peers.
+
+| Member | Type | Description |
+|--------|------|-------------|
+| `onConflict` | `Stream<ConflictEvent>` | Stream of conflict resolution events |
+| `syncStatus` | `Stream<SyncStatus>` | Stream of status changes |
+| `currentStatus` | `SyncStatus` | Current connection status |
+| `isConnected` | `bool` | Whether connected |
+| `peers` | `Set<String>` | Known peer node IDs |
+| `localNodeId` | `String` | This node's ID |
+| `disconnect()` | `Future<void>` | Disconnect and cleanup |
+
+### SyncStatus
+
+| Value | Description |
+|-------|-------------|
+| `disconnected` | Not connected to any peers |
+| `connecting` | Connection is being established |
+| `connected` | Fully connected and syncing |
+| `reconnecting` | Lost connection, attempting to reconnect |
+
+### Store Collaborative Extensions
+
+| Method | Signature | Description |
+|--------|-----------|-------------|
+| `collaborate()` | `CollaborativeSession` | Start a collaborative sync session |
+| `isSynced()` | `bool` | Whether a collaborative reacton is synced |
+| `clockOf()` | `VectorClock` | Get the vector clock for a collaborative reacton |
+| `collaborativeSessions` | `List<CollaborativeSession>` | All active sessions |
+
+---
+
+## Modules
+
+### ReactonModule
+
+Abstract base class for grouping related reactons with lifecycle management.
+
+| Member | Type | Description |
+|--------|------|-------------|
+| `name` | `String` | Module name |
+| `isInitialized` | `bool` | Whether initialized |
+| `registeredReactons` | `List<ReactonBase>` | All reactons registered by this module |
+| `register<T>(reacton)` | `T` | Register a reacton with the module |
+| `onInit(store)` | `void` | Called when the module is installed |
+| `onDispose(store)` | `void` | Called when the module is uninstalled |
+
+### Store Module Extensions
+
+| Method | Signature | Description |
+|--------|-----------|-------------|
+| `installModule<T>()` | `T` | Install a module and call its `onInit` |
+| `module<T>()` | `T` | Get an installed module by type |
+| `hasModule<T>()` | `bool` | Check if a module is installed |
+| `uninstallModule<T>()` | `void` | Uninstall a module and call its `onDispose` |
+| `installedModules` | `Iterable<ReactonModule>` | All installed modules |
+| `moduleCount` | `int` | Number of installed modules |
+
+---
+
+## Observable Collections
+
+### ListReacton\<T\>
+
+A reactive list with granular change events. Wraps `WritableReacton<List<T>>`.
+
+**Change events (sealed class `CollectionChange<T>`):**
+
+| Subclass | Fields | Description |
+|----------|--------|-------------|
+| `ItemAdded<T>` | `index`, `item` | Item added at index |
+| `ItemRemoved<T>` | `index`, `item` | Item removed from index |
+| `ItemUpdated<T>` | `index`, `oldItem`, `newItem` | Item updated at index |
+| `CollectionCleared<T>` | — | List cleared |
+| `ItemsMoved<T>` | `fromIndex`, `toIndex`, `item` | Item moved |
+
+**Store list extensions:**
+
+| Method | Signature | Description |
+|--------|-----------|-------------|
+| `listAdd<T>()` | `void` | Add item to end |
+| `listInsert<T>()` | `void` | Insert at index |
+| `listRemoveAt<T>()` | `T` | Remove and return item at index |
+| `listRemove<T>()` | `bool` | Remove first occurrence |
+| `listUpdate<T>()` | `void` | Update item at index via function |
+| `listSet<T>()` | `void` | Replace item at index |
+| `listClear<T>()` | `void` | Clear all items |
+| `listAddAll<T>()` | `void` | Add multiple items |
+| `listRemoveWhere<T>()` | `void` | Remove items matching predicate |
+| `listSort<T>()` | `void` | Sort in-place |
+| `listLength<T>()` | `int` | Get length |
+
+### MapReacton\<K, V\>
+
+A reactive map with granular change events. Wraps `WritableReacton<Map<K, V>>`.
+
+**Change events (sealed class `MapChange<K, V>`):**
+
+| Subclass | Fields | Description |
+|----------|--------|-------------|
+| `MapEntryAdded<K, V>` | `key`, `value` | Entry added |
+| `MapEntryRemoved<K, V>` | `key`, `value` | Entry removed |
+| `MapEntryUpdated<K, V>` | `key`, `oldValue`, `newValue` | Entry updated |
+| `MapCleared<K, V>` | — | Map cleared |
+
+**Store map extensions:**
+
+| Method | Signature | Description |
+|--------|-----------|-------------|
+| `mapPut<K, V>()` | `void` | Put a key-value pair |
+| `mapPutAll<K, V>()` | `void` | Put multiple entries |
+| `mapRemove<K, V>()` | `V?` | Remove and return value by key |
+| `mapUpdate<K, V>()` | `void` | Update value for key via function |
+| `mapClear<K, V>()` | `void` | Clear all entries |
+| `mapContainsKey<K, V>()` | `bool` | Check if key exists |
+| `mapLength<K, V>()` | `int` | Get entry count |
+| `mapRemoveWhere<K, V>()` | `void` | Remove entries matching predicate |
+
+---
+
+## Snapshots
+
+### StoreSnapshot
+
+An immutable snapshot of all reacton values in the store.
+
+| Member | Type | Description |
+|--------|------|-------------|
+| `values` | `Map<ReactonRef, dynamic>` | Captured values (unmodifiable) |
+| `timestamp` | `DateTime` | When the snapshot was taken |
+| `get<T>(reacton)` | `T?` | Get a value from the snapshot |
+| `contains(reacton)` | `bool` | Check if reacton exists in snapshot |
+| `size` | `int` | Number of reactons captured |
+| `diff(other)` | `SnapshotDiff` | Compare with another snapshot |
+| `copy()` | `StoreSnapshot` | Create a deep copy |
+
+### SnapshotDiff
+
+Differences between two snapshots.
+
+| Member | Type | Description |
+|--------|------|-------------|
+| `added` | `Map<ReactonRef, dynamic>` | Reactons in second but not first |
+| `removed` | `Map<ReactonRef, dynamic>` | Reactons in first but not second |
+| `changed` | `Map<ReactonRef, (dynamic, dynamic)>` | Changed values (old, new) |
+| `isEmpty` | `bool` | Whether there are no differences |
+| `isNotEmpty` | `bool` | Whether there are differences |
+
+---
+
 ## What's Next
 
 - [Flutter Package API](./flutter-reacton) -- Widgets and BuildContext extensions
 - [Test Package API](./reacton-test) -- Testing utilities
+- [CLI Package API](./reacton-cli) -- Command reference
+- [DevTools Package API](./reacton-devtools) -- DevTools extension reference

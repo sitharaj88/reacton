@@ -306,6 +306,65 @@ class SettingsPage extends StatelessWidget {
 }
 ```
 
+## Middleware-Based Persistence
+
+In addition to the manual `persistKey` + `serializer` approach shown above, Reacton provides a `PersistenceMiddleware` that handles persistence entirely through the middleware system. See the [Middleware](/advanced/middleware#built-in-persistencemiddleware) page for full API details.
+
+`PersistenceMiddleware` simplifies setup by bundling the storage adapter, serializer, and key into a single middleware instance -- no store-level `StorageAdapter` required.
+
+### Manual vs Middleware Comparison
+
+**Manual approach** (store-level `StorageAdapter` + `ReactonOptions`):
+
+```dart
+// 1. Configure storage on the store
+final store = ReactonStore(
+  storageAdapter: SharedPrefsStorage(prefs),
+);
+
+// 2. Set persistKey and serializer in options
+final themeReacton = reacton(
+  ThemeMode.system,
+  options: ReactonOptions(
+    persistKey: 'app_theme',
+    serializer: EnumSerializer(ThemeMode.values),
+  ),
+);
+```
+
+**Middleware approach** (`PersistenceMiddleware`):
+
+```dart
+// No store-level storage adapter needed
+final store = ReactonStore();
+
+// Storage, serializer, and key are all on the middleware
+final themeReacton = reacton(
+  ThemeMode.system,
+  options: ReactonOptions(
+    middleware: [
+      PersistenceMiddleware<ThemeMode>(
+        storage: SharedPrefsStorage(prefs),
+        serializer: EnumSerializer(ThemeMode.values),
+        key: 'app_theme',
+      ),
+    ],
+  ),
+);
+```
+
+Both approaches produce the same result: the reacton value is loaded from storage on initialization and saved after every write. The key differences are:
+
+| | Manual (`persistKey`) | `PersistenceMiddleware` |
+|---|---|---|
+| **Store setup** | Requires a `StorageAdapter` on the store. | No store-level configuration needed. |
+| **Storage backend** | All persisted reactons share one storage backend. | Each reacton can use a different storage backend. |
+| **Composability** | Standalone -- not part of the middleware pipeline. | Composes with other middleware (e.g., logging, validation). |
+
+::: tip
+For JSON-serializable objects, `JsonPersistenceMiddleware` lets you pass `toJson` and `fromJson` callbacks directly, removing the need to construct a `JsonSerializer` separately. See [Middleware: PersistenceMiddleware](/advanced/middleware#built-in-persistencemiddleware) for details.
+:::
+
 ## What's Next
 
 - [History](/advanced/history) -- Add undo/redo and time-travel debugging
