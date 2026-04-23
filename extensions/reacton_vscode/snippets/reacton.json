@@ -55,10 +55,10 @@
     "prefix": ["reffect", "createEffect"],
     "body": [
       "final ${1:name}Effect = createEffect(",
-      "  store,",
       "  (read) {",
       "    final value = read(${2:reacton});",
       "    ${3:// side effect}",
+      "    return null; // optional cleanup callback",
       "  },",
       "  name: '${1:name}',",
       ");"
@@ -92,18 +92,20 @@
     "description": "Create a Reacton state machine"
   },
   "Reacton Query": {
-    "prefix": ["rquery", "queryAtom"],
+    "prefix": ["rquery", "reactonQuery"],
     "body": [
-      "final ${1:name}Query = queryAtom<${2:Type}>(",
-      "  queryFn: (context) async {",
+      "final ${1:name}Query = reactonQuery<${2:Type}>(",
+      "  queryFn: (ctx) async {",
       "    ${3:// fetch data}",
       "    return ${4:value};",
       "  },",
-      "  staleTime: Duration(minutes: ${5:5}),",
+      "  config: const QueryConfig(",
+      "    staleTime: Duration(minutes: ${5:5}),",
+      "  ),",
       "  name: '${1:name}',",
       ");"
     ],
-    "description": "Create a Reacton query atom"
+    "description": "Create a Reacton query"
   },
   "ReactonScope Widget": {
     "prefix": ["rscope", "ReactonScope"],
@@ -144,7 +146,7 @@
     "body": [
       "ReactonListener<${1:Type}>(",
       "  reacton: ${2:reacton},",
-      "  onChanged: (context, value) {",
+      "  listener: (context, value) {",
       "    ${3:// handle change}",
       "  },",
       "  child: ${4:child},",
@@ -164,6 +166,35 @@
       ")"
     ],
     "description": "Create a ReactonSelector widget"
+  },
+  "ReactonSuspense Widget": {
+    "prefix": ["rsuspense", "ReactonSuspense"],
+    "body": [
+      "ReactonSuspense<${1:Type}>(",
+      "  reacton: ${2:asyncReacton},",
+      "  loading: (context) => ${3:const Center(child: CircularProgressIndicator())},",
+      "  error: (context, err, stack) => ${4:Text('Error: \\$err')},",
+      "  data: (context, ${5:value}) {",
+      "    return ${6:Widget()};",
+      "  },",
+      ")"
+    ],
+    "description": "Unwrap an AsyncValue reacton (0.2.0+)"
+  },
+  "ReactonErrorBoundary Widget": {
+    "prefix": ["rboundary", "ReactonErrorBoundary"],
+    "body": [
+      "ReactonErrorBoundary(",
+      "  reactons: [${1:reactonA}, ${2:reactonB}],",
+      "  loading: (context) => ${3:const Center(child: CircularProgressIndicator())},",
+      "  error: (context, err, stack, reset) => ${4:ErrorView(error: err, onRetry: reset)},",
+      "  onReset: () {",
+      "    ${5:// invalidate queries / retry}",
+      "  },",
+      "  child: ${6:child},",
+      ")"
+    ],
+    "description": "Group async reactons under one loading/error surface (0.2.0+)"
   },
   "Context Watch": {
     "prefix": ["rwatch", "context.watch"],
@@ -238,10 +269,10 @@
     "description": "Pattern match on AsyncValue"
   },
   "Reacton Module": {
-    "prefix": ["rmodule", "AtomModule"],
+    "prefix": ["rmodule", "ReactonModule"],
     "body": [
-      "class ${1:Name}Module extends AtomModule {",
-      "  late final ${2:items} = register(reacton<${3:List<Item>>}(${4:[]}, name: '${1:name}.${2:items}'));",
+      "class ${1:Name}Module extends ReactonModule {",
+      "  late final ${2:items} = register(reacton<${3:List<Item>}>(${4:[]}, name: '${1:name}.${2:items}'));",
       "",
       "  @override",
       "  void onInit() {",
@@ -257,14 +288,28 @@
     "description": "Create a Reacton module"
   },
   "Reacton Form": {
-    "prefix": ["rform", "formAtom"],
+    "prefix": ["rform", "formReacton"],
     "body": [
-      "final ${1:name}Form = formAtom({",
-      "  '${2:email}': fieldAtom('', validators: [required${3:, email}]),",
-      "  '${4:password}': fieldAtom('', validators: [required${5:, minLength(8)}]),",
+      "final ${1:name}Form = formReacton(fields: {",
+      "  '${2:email}': fieldReacton('', validators: [required${3:, email}]),",
+      "  '${4:password}': fieldReacton('', validators: [required${5:, minLength(8)}]),",
       "}, name: '${1:name}Form');"
     ],
-    "description": "Create a Reacton form atom"
+    "description": "Create a Reacton form"
+  },
+  "Versioned JSON Serializer": {
+    "prefix": ["rversioned", "VersionedJsonSerializer"],
+    "body": [
+      "final ${1:name}Serializer = VersionedJsonSerializer<${2:Type}>(",
+      "  version: ${3:1},",
+      "  fromJson: ${2:Type}.fromJson,",
+      "  toJson: (v) => v.toJson(),",
+      "  migrations: {",
+      "    // ${3:1}: (old) => {...old, 'newField': old['oldField']},",
+      "  },",
+      ");"
+    ],
+    "description": "Versioned persistence serializer with migrations (0.2.0+)"
   },
   "Reacton Store": {
     "prefix": ["rstore", "ReactonStore"],

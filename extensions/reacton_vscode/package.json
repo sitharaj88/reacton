@@ -1,9 +1,10 @@
 {
   "name": "reacton-vscode",
   "displayName": "Reacton State Management",
-  "description": "Enterprise-grade VS Code extension for Reacton - reactive state management for Flutter. Provides code lens, hover info, dependency graph, diagnostics, snippets, and more.",
-  "version": "0.1.0",
+  "description": "IDE support for Reacton — reactive state management for Flutter. Code lens, hover info, diagnostics, dependency graph, snippets, and more.",
+  "version": "0.2.0",
   "publisher": "sitharaj",
+  "license": "MIT",
   "icon": "images/reacton-logo.png",
   "engines": {
     "vscode": "^1.80.0"
@@ -21,8 +22,17 @@
     "reacton",
     "reactive",
     "state",
-    "atom"
+    "async"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sitharaj88/reacton.git",
+    "directory": "extensions/reacton_vscode"
+  },
+  "homepage": "https://sitharaj88.github.io/reacton/",
+  "bugs": {
+    "url": "https://github.com/sitharaj88/reacton/issues"
+  },
   "activationEvents": [
     "workspaceContains:pubspec.yaml"
   ],
@@ -167,15 +177,18 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTests.js"
+    "test": "node ./out/test/runTests.js",
+    "package": "vsce package --out reacton-vscode.vsix",
+    "publish": "vsce publish"
   },
   "devDependencies": {
-    "@types/vscode": "^1.80.0",
-    "@types/node": "^20.0.0",
     "@types/mocha": "^10.0.0",
-    "@vscode/test-electron": "^2.3.0",
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.80.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
+    "@vscode/test-electron": "^2.3.0",
+    "@vscode/vsce": "^3.2.0",
     "eslint": "^8.0.0",
     "mocha": "^10.0.0",
     "typescript": "^5.0.0"

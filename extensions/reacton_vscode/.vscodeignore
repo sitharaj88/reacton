@@ -1,7 +1,26 @@
 .vscode/**
 .vscode-test/**
-src/**
-!out/**
-node_modules/**
+.github/**
 .gitignore
+
+# TS source — we ship compiled JS from ./out only.
+src/**
 tsconfig.json
+
+# Test artifacts compiled into ./out should not ship.
+out/test/**
+
+# Source maps are dev-only.
+**/*.map
+
+# Lint / tooling configs
+.eslintrc*
+.mocharc*
+.prettierrc*
+
+# Lockfiles and local artifacts
+package-lock.json
+*.vsix
+
+# No runtime deps — everything is devDependencies.
+node_modules/**
