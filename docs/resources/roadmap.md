@@ -22,9 +22,18 @@ Reacton 0.1.2 ships with:
 
 The public API surface is stable enough to adopt for new projects. Breaking changes, if any, will be small and well-signposted.
 
+## Recently landed (unreleased, next: 0.2.0)
+
+Two additive features merged and tested — awaiting a release tag.
+
+| Feature | What it does |
+|---------|--------------|
+| **`ReactonSuspense` + `ReactonErrorBoundary`** | Declarative async UI — unwrap a single `AsyncValue` reacton, or group several under one retry-capable boundary. See the [Suspense guide](/flutter/suspense). |
+| **Persistence migrations** | `VersionedJsonSerializer<T>` embeds a schema version and runs ordered migrations on load. See the [migrations guide](/advanced/migrations). |
+
 ## In progress
 
-These are actively being worked on and will land in an upcoming 0.1.x or 0.2.0 release.
+These are actively being worked on for an upcoming release.
 
 | Area | What's happening |
 |------|------------------|

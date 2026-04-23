@@ -6,6 +6,54 @@ Version history for all Reacton packages. All packages in the monorepo share the
 
 ---
 
+## Unreleased (next: 0.2.0)
+
+Two additive features. No breaking changes.
+
+### `flutter_reacton`
+- **New:** [`ReactonSuspense<T>`](/flutter/suspense) — unwraps a single `AsyncValue<T>` reacton so builders receive `T` directly. Handles loading, error, and data states with a clean three-callback API. Defaults to stale-while-revalidate; opt out with `keepPreviousData: false`.
+- **New:** [`ReactonErrorBoundary`](/flutter/suspense#reactonerrorboundary) — groups multiple async reactons under one loading/error surface with a `reset` callback for retry. The `child` only renders once every reacton has `AsyncData`.
+
+### `reacton`
+- **New:** [`VersionedJsonSerializer<T>`](/advanced/migrations) — first-class persistence migrations. Embeds a schema version (`_v`) in the stored payload, runs ordered `JsonMigration` steps on load, and refuses to downgrade if a user flashes an older build. Legacy pre-versioned data is treated as version `0`.
+
+### Tests
+- 14 new tests for `VersionedJsonSerializer` (migrations, error paths, integration with `PersistenceMiddleware`).
+- 13 new widget tests for `ReactonSuspense` and `ReactonErrorBoundary`.
+
+### How to Adopt
+
+```yaml
+dependencies:
+  flutter_reacton: ^0.2.0   # when released
+```
+
+Suspense:
+
+```dart
+ReactonSuspense<User>(
+  reacton: userReacton,
+  loading: (_) => const CircularProgressIndicator(),
+  data: (_, user) => UserView(user),
+);
+```
+
+Migrations:
+
+```dart
+final serializer = VersionedJsonSerializer<Settings>(
+  version: 2,
+  fromJson: Settings.fromJson,
+  toJson: (s) => s.toJson(),
+  migrations: {
+    1: (old) => {...old, 'themeMode': old.remove('dark') == true ? 'dark' : 'light'},
+    2: (old) => {...old, 'analytics': old['analytics'] ?? true},
+  },
+);
+```
+
+---
+
 ## 0.1.2
 
 _February 26, 2026_

@@ -115,6 +115,7 @@ export default defineConfig({
             { text: 'ReactonScope', link: '/flutter/reacton-scope' },
             { text: 'Context Extensions', link: '/flutter/context-extensions' },
             { text: 'Widgets', link: '/flutter/widgets' },
+            { text: 'Suspense & ErrorBoundary', link: '/flutter/suspense' },
             { text: 'Form State', link: '/flutter/forms' },
             { text: 'Auto-Dispose', link: '/flutter/auto-dispose' },
           ],
@@ -151,6 +152,7 @@ export default defineConfig({
           items: [
             { text: 'Middleware', link: '/advanced/middleware' },
             { text: 'Persistence', link: '/advanced/persistence' },
+            { text: 'Migrations', link: '/advanced/migrations' },
             { text: 'Modules', link: '/advanced/modules' },
           ],
         },

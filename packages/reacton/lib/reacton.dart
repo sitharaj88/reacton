@@ -61,6 +61,7 @@ export 'src/middleware/devtools_middleware.dart';
 // Persistence
 export 'src/persistence/serializer.dart';
 export 'src/persistence/storage_adapter.dart';
+export 'src/persistence/versioned_serializer.dart';
 
 // State branching
 export 'src/branching/branch.dart';

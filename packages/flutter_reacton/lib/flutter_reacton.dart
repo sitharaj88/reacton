@@ -30,6 +30,8 @@ export 'src/widgets/reacton_builder.dart';
 export 'src/widgets/reacton_consumer.dart';
 export 'src/widgets/reacton_listener.dart';
 export 'src/widgets/reacton_selector.dart';
+export 'src/widgets/reacton_suspense.dart';
+export 'src/widgets/reacton_error_boundary.dart';
 
 // Extensions
 export 'src/extensions/build_context_ext.dart';
