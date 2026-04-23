@@ -10,7 +10,7 @@ Add both `reacton_lint` and `custom_lint` to your dev dependencies:
 
 ```yaml
 dev_dependencies:
-  reacton_lint: ^0.1.0
+  reacton_lint: ^0.1.2
   custom_lint: ^0.6.0
 ```
 

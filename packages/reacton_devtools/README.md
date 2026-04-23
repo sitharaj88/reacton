@@ -6,7 +6,7 @@ Flutter DevTools extension for the Reacton state management library. Provides re
 
 ```yaml
 dependencies:
-  reacton_devtools: ^0.1.0
+  reacton_devtools: ^0.1.2
 ```
 
 ## Setup

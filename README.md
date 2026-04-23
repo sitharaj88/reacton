@@ -24,7 +24,7 @@ Add `flutter_reacton` to your Flutter project (it re-exports `reacton`):
 
 ```yaml
 dependencies:
-  flutter_reacton: ^0.1.0
+  flutter_reacton: ^0.1.2
 ```
 
 ```dart

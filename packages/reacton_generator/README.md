@@ -6,7 +6,7 @@ Code generation for the Reacton state management library. Uses `build_runner` to
 
 ```yaml
 dev_dependencies:
-  reacton_generator: ^0.1.0
+  reacton_generator: ^0.1.2
   build_runner: ^2.4.0
 ```
 

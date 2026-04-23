@@ -8,7 +8,7 @@ The `reacton_lint` package provides custom lint rules that detect common Reacton
 
 ```yaml
 dev_dependencies:
-  reacton_lint: ^0.1.0
+  reacton_lint: ^0.1.2
   custom_lint: ^0.6.0
 ```
 

@@ -6,7 +6,7 @@ A novel reactive graph engine for Dart. Fine-grained state management with react
 
 ```yaml
 dependencies:
-  reacton: ^0.1.0
+  reacton: ^0.1.2
 ```
 
 ## Quick Start

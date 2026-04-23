@@ -6,7 +6,7 @@ CLI tool for the Reacton state management library. Scaffold reactons, generate f
 
 ```yaml
 dev_dependencies:
-  reacton_cli: ^0.1.0
+  reacton_cli: ^0.1.2
 ```
 
 Or activate globally:

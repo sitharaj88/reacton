@@ -8,7 +8,7 @@ Add `flutter_reacton` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_reacton: ^0.1.0
+  flutter_reacton: ^0.1.2
 ```
 
 Then run:
@@ -56,7 +56,7 @@ Install these packages as needed for testing, linting, CLI tooling, and code gen
 
 ```yaml
 dev_dependencies:
-  reacton_test: ^0.1.0
+  reacton_test: ^0.1.2
 ```
 
 Provides `TestStore`, mock reactons, graph assertions, effect tracking, and widget test pump helpers.
@@ -73,7 +73,7 @@ Scaffold projects, generate reacton boilerplate, analyze dependency graphs, and 
 
 ```yaml
 dev_dependencies:
-  reacton_lint: ^0.1.0
+  reacton_lint: ^0.1.2
 ```
 
 Then add to your `analysis_options.yaml`:
@@ -90,7 +90,7 @@ Catches common mistakes like using `context.read()` inside `build()` methods.
 
 ```yaml
 dependencies:
-  reacton_generator: ^0.1.0
+  reacton_generator: ^0.1.2
 
 dev_dependencies:
   build_runner: ^2.4.0
@@ -102,7 +102,7 @@ Annotation-driven reacton generation and automatic graph analysis via `build_run
 
 ```yaml
 dev_dependencies:
-  reacton_devtools: ^0.1.0
+  reacton_devtools: ^0.1.2
 ```
 
 A Flutter DevTools extension for visualizing the reactive graph, inspecting reacton values in real time, and time-travel debugging.
