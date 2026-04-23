@@ -1,24 +1,550 @@
+/* ============================================================
+   Reacton — VitePress Theme Overrides
+   Modern, gradient-forward, high-contrast type, crisp borders.
+   ============================================================ */
+
+/* ----- Typography -------------------------------------------- */
+@import url('https://rsms.me/inter/inter.css');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
 :root {
-  --vp-c-brand-1: #6366f1;
-  --vp-c-brand-2: #818cf8;
-  --vp-c-brand-3: #a5b4fc;
+  --vp-font-family-base:
+    'Inter var', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --vp-font-family-mono:
+    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+@supports (font-variation-settings: normal) {
+  :root {
+    --vp-font-family-base:
+      'Inter var', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  }
+}
+
+/* ----- Brand colors ----------------------------------------- */
+:root {
+  --reacton-brand-1: #6366f1;       /* indigo-500 */
+  --reacton-brand-2: #8b5cf6;       /* violet-500 */
+  --reacton-brand-3: #a855f7;       /* purple-500 */
+  --reacton-accent:  #22d3ee;       /* cyan-400 */
+  --reacton-success: #10b981;       /* emerald-500 */
+  --reacton-warning: #f59e0b;       /* amber-500 */
+  --reacton-danger:  #ef4444;       /* red-500 */
+
+  --vp-c-brand-1: var(--reacton-brand-1);
+  --vp-c-brand-2: var(--reacton-brand-2);
+  --vp-c-brand-3: var(--reacton-brand-3);
   --vp-c-brand-soft: rgba(99, 102, 241, 0.14);
 
+  /* Home hero */
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-  --vp-home-hero-image-background-image: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
-  --vp-home-hero-image-filter: blur(44px);
+  --vp-home-hero-name-background:
+    linear-gradient(120deg, #6366f1 0%, #8b5cf6 40%, #a855f7 70%, #22d3ee 100%);
+  --vp-home-hero-image-background-image:
+    radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.35) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(168, 85, 247, 0.35) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(34, 211, 238, 0.25) 0%, transparent 60%);
+  --vp-home-hero-image-filter: blur(56px);
 }
 
 .dark {
-  --vp-c-brand-1: #818cf8;
-  --vp-c-brand-2: #a5b4fc;
-  --vp-c-brand-3: #c7d2fe;
-  --vp-c-brand-soft: rgba(129, 140, 248, 0.14);
+  --vp-c-brand-1: #a5b4fc;
+  --vp-c-brand-2: #c4b5fd;
+  --vp-c-brand-3: #d8b4fe;
+  --vp-c-brand-soft: rgba(165, 180, 252, 0.16);
+}
+
+/* ----- Global polish ---------------------------------------- */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .vp-doc h1,
 .vp-doc h2,
-.vp-doc h3 {
-  letter-spacing: -0.02em;
+.vp-doc h3,
+.vp-doc h4 {
+  letter-spacing: -0.022em;
+  font-weight: 700;
+}
+
+.vp-doc h1 {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(110deg, var(--vp-c-text-1) 0%, var(--reacton-brand-2) 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-bottom: 4px;
+}
+
+.vp-doc h2 {
+  border-top: 1px solid var(--vp-c-divider);
+  padding-top: 24px;
+  margin-top: 40px;
+}
+
+.vp-doc h2::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 0.9em;
+  margin-right: 10px;
+  vertical-align: -0.08em;
+  background: linear-gradient(180deg, var(--reacton-brand-1), var(--reacton-brand-3));
+  border-radius: 2px;
+}
+
+/* ----- Homepage hero enhancements --------------------------- */
+.VPHero .name,
+.VPHero .text {
+  font-weight: 800 !important;
+  letter-spacing: -0.035em !important;
+  line-height: 1.05 !important;
+}
+
+.VPHero .tagline {
+  font-weight: 500 !important;
+  color: var(--vp-c-text-2) !important;
+  letter-spacing: -0.01em;
+}
+
+.VPHero .image-container {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Brand action button */
+.VPButton.brand {
+  background: linear-gradient(120deg, var(--reacton-brand-1), var(--reacton-brand-3)) !important;
+  border: none !important;
+  box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.55) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.VPButton.brand:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 40px -10px rgba(139, 92, 246, 0.75) !important;
+}
+
+/* ----- Feature cards ---------------------------------------- */
+.VPFeature {
+  border: 1px solid var(--vp-c-divider) !important;
+  border-radius: 16px !important;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(99, 102, 241, 0.03) 0%,
+      transparent 60%
+    ),
+    var(--vp-c-bg-soft) !important;
+  transition: all 0.25s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.VPFeature::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: 16px;
+  background: linear-gradient(120deg, transparent 40%, var(--reacton-brand-2), transparent 60%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.VPFeature:hover {
+  transform: translateY(-4px);
+  border-color: transparent !important;
+  box-shadow:
+    0 20px 40px -20px rgba(99, 102, 241, 0.35),
+    0 0 0 1px rgba(139, 92, 246, 0.2);
+}
+
+.VPFeature:hover::before {
+  opacity: 1;
+}
+
+.VPFeature .icon {
+  background: linear-gradient(135deg, var(--reacton-brand-1), var(--reacton-brand-3)) !important;
+  color: #fff !important;
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 12px !important;
+  font-size: 22px !important;
+  box-shadow: 0 8px 24px -8px rgba(139, 92, 246, 0.5);
+}
+
+.VPFeature .title {
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.015em !important;
+}
+
+.VPFeature .details {
+  color: var(--vp-c-text-2) !important;
+  line-height: 1.6 !important;
+}
+
+/* ----- Navbar --------------------------------------------- */
+.VPNavBar {
+  backdrop-filter: saturate(140%) blur(16px);
+  -webkit-backdrop-filter: saturate(140%) blur(16px);
+}
+
+.VPNavBar.has-sidebar .content-body,
+.VPNavBar:not(.home) .content-body {
+  background: rgba(255, 255, 255, 0.75) !important;
+}
+
+.dark .VPNavBar.has-sidebar .content-body,
+.dark .VPNavBar:not(.home) .content-body {
+  background: rgba(20, 20, 25, 0.75) !important;
+}
+
+/* ----- Sidebar -------------------------------------------- */
+.VPSidebarItem.level-0 > .item > .text {
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--vp-c-text-1) !important;
+}
+
+.VPSidebarItem.level-1 .link .text {
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.VPSidebarItem.level-1 .link:hover .text {
+  transform: translateX(2px);
+  color: var(--reacton-brand-2) !important;
+}
+
+.VPSidebarItem.is-active > .item .link .text {
+  background: linear-gradient(120deg, var(--reacton-brand-1), var(--reacton-brand-3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700 !important;
+}
+
+/* ----- Code blocks ---------------------------------------- */
+.vp-doc div[class*='language-'] {
+  border-radius: 12px !important;
+  border: 1px solid var(--vp-c-divider);
+  box-shadow: 0 4px 20px -8px rgba(0, 0, 0, 0.08);
+  position: relative;
+  margin: 20px 0;
+}
+
+.dark .vp-doc div[class*='language-'] {
+  box-shadow: 0 4px 30px -10px rgba(0, 0, 0, 0.4);
+}
+
+.vp-doc div[class*='language-'] pre {
+  padding: 20px 0 !important;
+}
+
+.vp-doc div[class*='language-'] code {
+  font-family: var(--vp-font-family-mono) !important;
+  font-size: 13.5px !important;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+}
+
+.vp-doc [class*='language-']:before {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--vp-c-text-2) !important;
+  opacity: 0.85;
+}
+
+.vp-doc .line-numbers-wrapper {
+  color: var(--vp-c-text-3) !important;
+  opacity: 0.5;
+}
+
+/* Inline code */
+.vp-doc :not(pre) > code {
+  background: var(--vp-c-brand-soft) !important;
+  border: 1px solid transparent;
+  padding: 2px 6px !important;
+  border-radius: 6px !important;
+  font-size: 0.88em !important;
+  font-weight: 500 !important;
+  color: var(--reacton-brand-2) !important;
+}
+
+.dark .vp-doc :not(pre) > code {
+  color: var(--reacton-brand-3) !important;
+}
+
+/* Copy button polish */
+.vp-code-group .tabs label {
+  font-weight: 600 !important;
+  letter-spacing: -0.005em;
+}
+
+/* ----- Tables --------------------------------------------- */
+.vp-doc table {
+  border-radius: 10px;
+  overflow: hidden;
+  display: table;
+  width: 100%;
+  margin: 20px 0;
+  border: 1px solid var(--vp-c-divider);
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.vp-doc th {
+  background: linear-gradient(
+    180deg,
+    rgba(99, 102, 241, 0.06) 0%,
+    rgba(168, 85, 247, 0.04) 100%
+  ) !important;
+  font-weight: 700 !important;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--vp-c-text-1) !important;
+  padding: 12px 16px !important;
+}
+
+.vp-doc td {
+  padding: 12px 16px !important;
+  border-top: 1px solid var(--vp-c-divider) !important;
+}
+
+.vp-doc tr:hover td {
+  background: var(--vp-c-bg-soft) !important;
+}
+
+/* ----- Callouts / custom containers ----------------------- */
+.vp-doc .custom-block {
+  border-radius: 12px !important;
+  border: 1px solid var(--vp-c-divider);
+  border-left-width: 4px !important;
+  padding: 16px 20px !important;
+  margin: 20px 0 !important;
+  background: var(--vp-c-bg-soft);
+}
+
+.vp-doc .custom-block.tip {
+  border-left-color: var(--reacton-brand-2) !important;
+  background: linear-gradient(
+    90deg,
+    rgba(99, 102, 241, 0.08) 0%,
+    rgba(99, 102, 241, 0.02) 100%
+  );
+}
+
+.vp-doc .custom-block.warning {
+  border-left-color: var(--reacton-warning) !important;
+  background: linear-gradient(
+    90deg,
+    rgba(245, 158, 11, 0.08) 0%,
+    rgba(245, 158, 11, 0.02) 100%
+  );
+}
+
+.vp-doc .custom-block.danger {
+  border-left-color: var(--reacton-danger) !important;
+  background: linear-gradient(
+    90deg,
+    rgba(239, 68, 68, 0.08) 0%,
+    rgba(239, 68, 68, 0.02) 100%
+  );
+}
+
+.vp-doc .custom-block.info {
+  border-left-color: var(--reacton-accent) !important;
+  background: linear-gradient(
+    90deg,
+    rgba(34, 211, 238, 0.08) 0%,
+    rgba(34, 211, 238, 0.02) 100%
+  );
+}
+
+.vp-doc .custom-block-title {
+  font-weight: 700 !important;
+  letter-spacing: -0.01em;
+}
+
+/* ----- Badges / pills ------------------------------------- */
+.vp-doc .badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.6;
+  vertical-align: middle;
+}
+
+.vp-doc .badge.brand {
+  background: linear-gradient(120deg, var(--reacton-brand-1), var(--reacton-brand-3));
+  color: #fff;
+}
+
+.vp-doc .badge.new {
+  background: var(--reacton-success);
+  color: #fff;
+}
+
+.vp-doc .badge.warn {
+  background: var(--reacton-warning);
+  color: #111;
+}
+
+/* ----- Links ---------------------------------------------- */
+.vp-doc a {
+  text-decoration: none !important;
+  font-weight: 500;
+  background-image: linear-gradient(120deg, var(--reacton-brand-1), var(--reacton-brand-3));
+  background-size: 0 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s ease;
+}
+
+.vp-doc a:hover {
+  background-size: 100% 2px;
+}
+
+/* ----- Blockquotes ---------------------------------------- */
+.vp-doc blockquote {
+  border-left: 3px solid var(--reacton-brand-2) !important;
+  border-radius: 0 8px 8px 0;
+  background: var(--vp-c-bg-soft);
+  padding: 12px 20px !important;
+  margin: 20px 0 !important;
+  font-style: italic;
+  color: var(--vp-c-text-2);
+}
+
+/* ----- Search ---------------------------------------------- */
+.VPLocalSearchBox {
+  backdrop-filter: blur(16px);
+}
+
+.VPLocalSearchBox input {
+  border-radius: 10px !important;
+  border-color: var(--vp-c-divider) !important;
+  transition: border-color 0.2s ease;
+}
+
+.VPLocalSearchBox input:focus {
+  border-color: var(--reacton-brand-2) !important;
+  box-shadow: 0 0 0 3px var(--vp-c-brand-soft);
+}
+
+/* ----- Scrollbar ------------------------------------------ */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--vp-c-divider);
+  border-radius: 10px;
+  border: 2px solid var(--vp-c-bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-brand-2);
+}
+
+/* ----- Mermaid diagrams ---------------------------------- */
+.vp-doc .mermaid {
+  border-radius: 12px;
+  background: var(--vp-c-bg-soft);
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid var(--vp-c-divider);
+}
+
+/* ----- Utility animations --------------------------------- */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    var(--reacton-brand-1) 0%,
+    var(--reacton-brand-3) 40%,
+    var(--reacton-accent) 50%,
+    var(--reacton-brand-3) 60%,
+    var(--reacton-brand-1) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ----- Homepage layout overrides ------------------------- */
+.VPHome {
+  padding-bottom: 64px !important;
+}
+
+.VPHome .home-showcase {
+  max-width: 1152px;
+  margin: 64px auto 0;
+  padding: 0 24px;
+}
+
+/* ----- Responsive polish --------------------------------- */
+@media (max-width: 768px) {
+  .vp-doc h1 {
+    font-size: 28px;
+  }
+  .VPHero .name,
+  .VPHero .text {
+    font-size: 40px !important;
+  }
+  .vp-doc h2 {
+    margin-top: 32px;
+    padding-top: 16px;
+  }
+}
+
+/* ----- Print ---------------------------------------------- */
+@media print {
+  .VPNav,
+  .VPSidebar,
+  .VPLocalNav,
+  .VPDocAside,
+  .VPDocFooter,
+  .VPFooter {
+    display: none !important;
+  }
+  .vp-doc {
+    max-width: 100% !important;
+  }
 }

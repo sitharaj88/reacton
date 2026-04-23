@@ -9,6 +9,7 @@ Guides for migrating to Reacton from other Flutter state management libraries. E
 | **Riverpod** | [From Riverpod](./from-riverpod) | Providers become top-level `reacton()` calls; `ref.watch` becomes `context.watch()`; no provider wrappers needed |
 | **BLoC** | [From BLoC](./from-bloc) | Bloc classes become `stateMachine()` or `reacton()` + `computed()`; events become direct `set()`/`update()` calls; `BlocBuilder` becomes `context.watch()` |
 | **Provider** | [From Provider](./from-provider) | `ChangeNotifier` is replaced by immutable reacton values; `Provider.of` becomes `context.watch()`/`context.read()`; `MultiProvider` becomes a single `ReactonScope` |
+| **GetX** | [From GetX](./from-getx) | `Rx*` observables become `reacton()`; `Obx()` becomes `context.watch()`; controllers become modules; `Get.put`/`Get.find` become `ReactonScope` + context reads |
 
 ## General Migration Strategy
 
@@ -23,3 +24,4 @@ Guides for migrating to Reacton from other Flutter state management libraries. E
 - [From Riverpod](./from-riverpod) -- If you are coming from Riverpod
 - [From BLoC](./from-bloc) -- If you are coming from BLoC
 - [From Provider](./from-provider) -- If you are coming from Provider
+- [From GetX](./from-getx) -- If you are coming from GetX

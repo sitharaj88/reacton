@@ -2,32 +2,56 @@ import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   title: 'Reacton',
-  description: 'Fine-grained reactive state management for Flutter',
+  description: 'Fine-grained reactive state management for Flutter — glitch-free updates, a progressive API, and a batteries-included ecosystem.',
   base: '/reacton/',
+  lang: 'en-US',
 
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/reacton/logo.svg' }],
+    ['link', { rel: 'preconnect', href: 'https://rsms.me/' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+    ['meta', { name: 'theme-color', content: '#6366f1' }],
+
+    // Open Graph
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:url', content: 'https://sitharaj88.github.io/reacton/' }],
     ['meta', { property: 'og:title', content: 'Reacton — Reactive State Management for Flutter' }],
-    ['meta', { property: 'og:description', content: 'Fine-grained reactivity with reactons, computed values, state branching, time-travel, and more.' }],
+    ['meta', { property: 'og:description', content: 'Fine-grained reactivity with reactons, computed values, state branching, time-travel, and a full ecosystem of dev tools.' }],
+    ['meta', { property: 'og:image', content: 'https://sitharaj88.github.io/reacton/logo.svg' }],
+
+    // Twitter
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:title', content: 'Reacton — Reactive State Management for Flutter' }],
+    ['meta', { name: 'twitter:description', content: 'Glitch-free, fine-grained reactivity for Flutter with a progressive API and a full ecosystem of tooling.' }],
+    ['meta', { name: 'twitter:image', content: 'https://sitharaj88.github.io/reacton/logo.svg' }],
   ],
 
   cleanUrls: true,
+  lastUpdated: true,
+
+  sitemap: {
+    hostname: 'https://sitharaj88.github.io/reacton/',
+  },
 
   markdown: {
-    theme: { light: 'github-light', dark: 'one-dark-pro' },
+    theme: { light: 'github-light', dark: 'github-dark-dimmed' },
     lineNumbers: true,
+    image: {
+      lazyLoading: true,
+    },
   },
 
   themeConfig: {
-    logo: '/logo.svg',
+    logo: { src: '/logo.svg', alt: 'Reacton' },
+    siteTitle: 'Reacton',
 
     nav: [
-      { text: 'Guide', link: '/guide/' },
-      { text: 'Flutter', link: '/flutter/' },
-      { text: 'API', link: '/api/' },
-      { text: 'Cookbook', link: '/cookbook/' },
-      { text: 'Architecture', link: '/architecture/' },
+      { text: 'Guide', link: '/guide/', activeMatch: '^/guide/' },
+      { text: 'Flutter', link: '/flutter/', activeMatch: '^/flutter/' },
+      { text: 'Async', link: '/async/', activeMatch: '^/async/' },
+      { text: 'Advanced', link: '/advanced/', activeMatch: '^/advanced/' },
+      { text: 'Cookbook', link: '/cookbook/', activeMatch: '^/cookbook/' },
+      { text: 'API', link: '/api/', activeMatch: '^/api/' },
       {
         text: 'Ecosystem',
         items: [
@@ -41,9 +65,14 @@ export default defineConfig({
       {
         text: 'Resources',
         items: [
-          { text: 'FAQ', link: '/resources/faq' },
-          { text: 'Comparison', link: '/resources/comparison' },
+          { text: 'Architecture', link: '/architecture/' },
+          { text: 'Testing', link: '/testing/' },
           { text: 'Migration Guides', link: '/migration/' },
+          { text: 'FAQ', link: '/resources/faq' },
+          { text: 'Troubleshooting', link: '/guide/troubleshooting' },
+          { text: 'Error Reference', link: '/guide/errors' },
+          { text: 'Comparison', link: '/resources/comparison' },
+          { text: 'Roadmap', link: '/resources/roadmap' },
           { text: 'Changelog', link: '/resources/changelog' },
           { text: 'Glossary', link: '/guide/glossary' },
         ],
@@ -65,7 +94,15 @@ export default defineConfig({
           items: [
             { text: 'Core Concepts', link: '/guide/core-concepts' },
             { text: 'Thinking in Reacton', link: '/guide/thinking-in-reacton' },
+            { text: 'Common Pitfalls', link: '/guide/pitfalls' },
             { text: 'Glossary', link: '/guide/glossary' },
+          ],
+        },
+        {
+          text: 'Troubleshooting',
+          items: [
+            { text: 'Troubleshooting Guide', link: '/guide/troubleshooting' },
+            { text: 'Error Reference', link: '/guide/errors' },
           ],
         },
       ],
@@ -188,7 +225,7 @@ export default defineConfig({
           text: 'API Reference',
           items: [
             { text: 'Index', link: '/api/' },
-            { text: 'reacton (Core)', link: '/api/reacton' },
+            { text: 'reacton (core)', link: '/api/reacton' },
             { text: 'flutter_reacton', link: '/api/flutter-reacton' },
             { text: 'reacton_test', link: '/api/reacton-test' },
             { text: 'reacton_cli', link: '/api/reacton-cli' },
@@ -246,7 +283,17 @@ export default defineConfig({
           items: [
             { text: 'FAQ', link: '/resources/faq' },
             { text: 'Detailed Comparison', link: '/resources/comparison' },
+            { text: 'Roadmap', link: '/resources/roadmap' },
             { text: 'Changelog', link: '/resources/changelog' },
+          ],
+        },
+        {
+          text: 'Cross-reference',
+          items: [
+            { text: 'Troubleshooting', link: '/guide/troubleshooting' },
+            { text: 'Error Reference', link: '/guide/errors' },
+            { text: 'Common Pitfalls', link: '/guide/pitfalls' },
+            { text: 'Glossary', link: '/guide/glossary' },
           ],
         },
       ],
@@ -256,11 +303,43 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/sitharaj88/reacton' },
     ],
 
-    search: { provider: 'local' },
+    search: {
+      provider: 'local',
+      options: {
+        detailedView: true,
+      },
+    },
+
+    editLink: {
+      pattern: 'https://github.com/sitharaj88/reacton/edit/main/docs/:path',
+      text: 'Edit this page on GitHub',
+    },
+
+    lastUpdated: {
+      text: 'Last updated',
+      formatOptions: { dateStyle: 'medium' },
+    },
+
+    outline: {
+      level: [2, 3],
+      label: 'On this page',
+    },
+
+    docFooter: {
+      prev: 'Previous',
+      next: 'Next',
+    },
+
+    returnToTopLabel: 'Back to top',
+    sidebarMenuLabel: 'Menu',
+    darkModeSwitchLabel: 'Appearance',
+    lightModeSwitchTitle: 'Switch to light theme',
+    darkModeSwitchTitle: 'Switch to dark theme',
 
     footer: {
-      message: 'Released under the MIT License.',
-      copyright: 'Copyright 2025-present',
+      message:
+        'Released under the <a href="https://github.com/sitharaj88/reacton/blob/main/LICENSE">MIT License</a>.',
+      copyright: `Copyright © 2025-${new Date().getFullYear()} Reacton contributors`,
     },
   },
 })

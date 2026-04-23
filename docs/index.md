@@ -1,99 +1,53 @@
 ---
 layout: home
 
+title: Reacton
+titleTemplate: Fine-grained reactive state management for Flutter
+
 hero:
   name: Reacton
-  text: Reactive State Management for Flutter
-  tagline: Fine-grained reactivity with a progressive API. From counter apps to enterprise systems.
+  text: Reactive state, done right.
+  tagline: Fine-grained, glitch-free state management for Flutter — with a progressive API that scales from counters to collaborative, offline-first apps.
   image:
     src: /logo.svg
     alt: Reacton
   actions:
     - theme: brand
-      text: Get Started
+      text: Get started →
       link: /guide/quick-start
     - theme: alt
       text: Why Reacton?
       link: /guide/
+    - theme: alt
+      text: ★ GitHub
+      link: https://github.com/sitharaj88/reacton
 
 features:
   - icon: ⚡
-    title: Fine-Grained Reactivity
-    details: Reacton-level subscriptions mean only widgets that depend on changed state rebuild. Zero unnecessary work.
+    title: Fine-grained reactivity
+    details: Reacton-level subscriptions mean only the widgets depending on changed state rebuild. No provider pyramids, no wasted frames.
   - icon: ✨
-    title: Zero Boilerplate
-    details: Just 5 concepts to start — reacton, computed, watch, set, scope. No providers, no builders, no context juggling.
+    title: Zero boilerplate
+    details: Five concepts to start — reacton, computed, watch, set, scope. No builders, no controllers, no context juggling.
   - icon: 💎
-    title: Glitch-Free Updates
-    details: Two-phase mark/propagate algorithm solves the diamond dependency problem. Every computed value updates exactly once.
+    title: Glitch-free updates
+    details: A two-phase mark/propagate algorithm solves the diamond dependency problem. Every computed value updates exactly once, never mid-transition.
   - icon: 🔀
-    title: State Branching
-    details: Git-like branching for state. Preview changes, create drafts, merge or discard. Perfect for speculative UI.
+    title: State branching
+    details: Git-like branches for state. Preview changes, draft edits, merge or discard. Perfect for speculative UI and undo-heavy workflows.
   - icon: ⏱️
-    title: Time Travel
-    details: Built-in undo/redo with full action log. Jump to any point in history. Debug state changes effortlessly.
-  - icon: 📦
-    title: Full Ecosystem
-    details: DevTools, CLI, lint rules, VS Code extension, testing utilities, and code generation — all included.
+    title: Time travel
+    details: Built-in undo/redo with a full action log. Jump to any point in history. Debug state changes like you debug code.
+  - icon: 🧰
+    title: Full ecosystem
+    details: CLI, DevTools extension, lint rules, VS Code extension, testing utilities, code generation — all first-party, all documented.
+  - icon: 🧪
+    title: First-class testing
+    details: A dedicated reacton_test package — TestReactonStore, overrides, effect trackers, fluent assertions. No Flutter required for most tests.
+  - icon: 🌐
+    title: Built for the real world
+    details: Async with stale-while-revalidate, state machines, persistence, middleware, multi-isolate, CRDT collaboration — all opt-in, all tested.
+  - icon: 🦋
+    title: Pure Dart core
+    details: The reactive engine has zero Flutter dependency. Use it in CLI apps, servers, tests — or ship it to web, desktop, embedded.
 ---
-
-<div style="max-width: 688px; margin: 0 auto; padding: 48px 24px;">
-
-## The simplest reactive state in Flutter
-
-```dart
-import 'package:flutter_reacton/flutter_reacton.dart';
-
-// 1. Declare state
-final counter = reacton(0, name: 'counter');
-final doubled = computed((read) => read(counter) * 2, name: 'doubled');
-
-// 2. Wrap your app
-void main() => runApp(ReactonScope(child: MyApp()));
-
-// 3. Use in widgets
-class CounterPage extends StatelessWidget {
-  Widget build(BuildContext context) {
-    final count = context.watch(counter);        // rebuilds on change
-    final double = context.watch(doubled);       // auto-derived
-
-    return Column(children: [
-      Text('Count: $count'),
-      Text('Doubled: $double'),
-      ElevatedButton(
-        onPressed: () => context.update(counter, (c) => c + 1),
-        child: Text('Increment'),
-      ),
-    ]);
-  }
-}
-```
-
-## How does Reacton compare?
-
-| Feature | Reacton | Riverpod | Bloc | Provider |
-|---------|:-------:|:--------:|:----:|:--------:|
-| Fine-grained reactivity | ✅ | ✅ | ❌ | ❌ |
-| Zero boilerplate | ✅ | ❌ | ❌ | ✅ |
-| Computed / derived state | ✅ | ✅ | ❌ | ❌ |
-| State branching | ✅ | ❌ | ❌ | ❌ |
-| Time travel (undo/redo) | ✅ | ❌ | ✅ | ❌ |
-| State machines | ✅ | ❌ | ✅ | ❌ |
-| Observable collections | ✅ | ❌ | ❌ | ❌ |
-| Query caching (SWR) | ✅ | ✅ | ❌ | ❌ |
-| Form state management | ✅ | ❌ | ❌ | ❌ |
-| DevTools extension | ✅ | ✅ | ✅ | ❌ |
-| CLI tooling | ✅ | ✅ | ✅ | ❌ |
-| Custom lint rules | ✅ | ✅ | ✅ | ❌ |
-| VS Code extension | ✅ | ❌ | ✅ | ❌ |
-| Multi-isolate support | ✅ | ❌ | ❌ | ❌ |
-
-## Progressive API — grow with your needs
-
-**Level 1** — `reacton()`, `context.watch()`, `context.set()` — covers 80% of apps
-
-**Level 2** — Add `computed()`, `createEffect()`, `selector()` — for derived state and side effects
-
-**Level 3** — State machines, branching, persistence, middleware, isolates — enterprise-grade power
-
-</div>
