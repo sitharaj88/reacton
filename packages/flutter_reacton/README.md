@@ -17,7 +17,7 @@ dependencies:
 import 'package:flutter_reacton/flutter_reacton.dart';
 
 // 1. Define reactons at the top level
-final counterReacton = atom(0, name: 'counter');
+final counterReacton = reacton(0, name: 'counter');
 
 // 2. Wrap your app in ReactonScope
 void main() => runApp(ReactonScope(child: MyApp()));
@@ -93,21 +93,21 @@ A widget that rebuilds when a specific reacton changes. Useful when you need a b
 
 ```dart
 ReactonBuilder<int>(
-  atom: counterReacton,
+  reacton: counterReacton,
   builder: (context, count) => Text('$count'),
 )
 ```
 
 ### ReactonConsumer
 
-Combines watching a reacton with access to both the value and the store for dispatching updates.
+Exposes a `ReactonWidgetRef` that can `watch`, `read`, `set`, and `update` multiple reactons inside a single builder.
 
 ```dart
-ReactonConsumer<int>(
-  atom: counterReacton,
-  builder: (context, count, store) {
+ReactonConsumer(
+  builder: (context, ref) {
+    final count = ref.watch(counterReacton);
     return ElevatedButton(
-      onPressed: () => store.set(counterReacton, count + 1),
+      onPressed: () => ref.update(counterReacton, (c) => c + 1),
       child: Text('$count'),
     );
   },
@@ -120,7 +120,7 @@ Listens to a reacton and runs a callback on change without rebuilding. Useful fo
 
 ```dart
 ReactonListener<String>(
-  atom: errorReacton,
+  reacton: errorReacton,
   listener: (context, error) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(error)),
@@ -136,7 +136,7 @@ Watches a sub-value of a reacton and only rebuilds when the selected value chang
 
 ```dart
 ReactonSelector<User, String>(
-  atom: userReacton,
+  reacton: userReacton,
   selector: (user) => user.name,
   builder: (context, name) => Text(name),
 )
@@ -148,7 +148,7 @@ Reacton automatically cleans up reacton subscriptions when widgets are removed f
 
 ## Documentation
 
-See the [Reacton documentation](https://github.com/sitharaj/reacton) for full API reference and guides.
+See the [Reacton documentation](https://sitharaj88.github.io/reacton/) for full API reference and guides. Source at <https://github.com/sitharaj88/reacton>.
 
 ## License
 

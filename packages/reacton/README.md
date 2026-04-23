@@ -15,8 +15,8 @@ dependencies:
 import 'package:reacton/reacton.dart';
 
 // Create reactons -- the smallest unit of reactive state
-final counterReacton = atom(0, name: 'counter');
-final nameReacton = atom('World', name: 'name');
+final counterReacton = reacton(0, name: 'counter');
+final nameReacton = reacton('World', name: 'name');
 
 // Derive state with computed reactons (auto-tracked dependencies)
 final greetingReacton = computed<String>(
@@ -39,8 +39,8 @@ print(store.get(greetingReacton)); // "Hello World, count is 5"
 Reactons are the smallest unit of reactive state. They hold a single value and notify subscribers when it changes.
 
 ```dart
-final counterReacton = atom(0, name: 'counter');
-final todosReacton = atom<List<Todo>>([], name: 'todos');
+final counterReacton = reacton(0, name: 'counter');
+final todosReacton = reacton<List<Todo>>([], name: 'todos');
 ```
 
 ### Computed
@@ -72,7 +72,7 @@ final dispose = store.registerEffect(createEffect((read) {
 Async reactons manage asynchronous data with built-in loading, error, and data states.
 
 ```dart
-final weatherReacton = asyncAtom<Weather>((read) async {
+final weatherReacton = asyncReacton<Weather>((read) async {
   final city = read(selectedCityReacton);
   return await weatherApi.getWeather(city);
 }, name: 'weather', retryPolicy: RetryPolicy(maxAttempts: 3));
@@ -92,7 +92,7 @@ Families create parameterized reactons on demand. Each unique argument produces 
 
 ```dart
 final userReacton = family<AsyncValue<User>, int>((userId) {
-  return asyncAtom((read) => api.getUser(userId), name: 'user_$userId');
+  return asyncReacton((read) => api.getUser(userId), name: 'user_$userId');
 });
 
 // Usage: store.get(userReacton(42))
@@ -163,7 +163,7 @@ This ensures minimal recomputation and no diamond-problem glitches.
 
 ## Documentation
 
-See the [Reacton documentation](https://github.com/sitharaj/reacton) for full API reference and guides.
+See the [Reacton documentation](https://sitharaj88.github.io/reacton/) for full API reference and guides. Source at <https://github.com/sitharaj88/reacton>.
 
 ## License
 

@@ -84,7 +84,7 @@ The extension registers the following Dart service extensions for communication 
 
 ## Documentation
 
-See the [Reacton documentation](https://github.com/sitharaj/reacton) for full API reference and guides.
+See the [Reacton documentation](https://sitharaj88.github.io/reacton/) for full API reference and guides. Source at <https://github.com/sitharaj88/reacton>.
 
 ## License
 

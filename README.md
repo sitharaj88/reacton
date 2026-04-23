@@ -10,13 +10,13 @@ A novel reactive graph engine for Flutter. Fine-grained state management with re
 
 | Package | Description | Version |
 |---------|-------------|---------|
-| [reacton](packages/reacton/) | Pure Dart core -- reactons, reactive graph, store, async, middleware | 0.1.0 |
-| [flutter_reacton](packages/flutter_reacton/) | Flutter widgets -- ReactonScope, ReactonBuilder, context.watch() | 0.1.0 |
-| [reacton_test](packages/reacton_test/) | Testing utilities -- TestReactonStore, mocks, widget helpers | 0.1.0 |
-| [reacton_lint](packages/reacton_lint/) | Custom lint rules via custom_lint | 0.1.0 |
-| [reacton_cli](packages/reacton_cli/) | CLI tool -- scaffolding, graph analysis, diagnostics | 0.1.0 |
-| [reacton_devtools](packages/reacton_devtools/) | DevTools extension -- graph view, inspector, timeline | 0.1.0 |
-| [reacton_generator](packages/reacton_generator/) | Code generation with build_runner | 0.1.0 |
+| [reacton](packages/reacton/) | Pure Dart core -- reactons, reactive graph, store, async, middleware | 0.1.2 |
+| [flutter_reacton](packages/flutter_reacton/) | Flutter widgets -- ReactonScope, ReactonBuilder, context.watch() | 0.1.2 |
+| [reacton_test](packages/reacton_test/) | Testing utilities -- TestReactonStore, mocks, widget helpers | 0.1.2 |
+| [reacton_lint](packages/reacton_lint/) | Custom lint rules via custom_lint | 0.1.2 |
+| [reacton_cli](packages/reacton_cli/) | CLI tool -- scaffolding, graph analysis, diagnostics | 0.1.2 |
+| [reacton_devtools](packages/reacton_devtools/) | DevTools extension -- graph view, inspector, timeline | 0.1.2 |
+| [reacton_generator](packages/reacton_generator/) | Code generation with build_runner | 0.1.2 |
 
 ## Quick Start
 
@@ -31,8 +31,8 @@ dependencies:
 import 'package:flutter_reacton/flutter_reacton.dart';
 
 // 1. Define reactons at the top level
-final counterReacton = atom(0, name: 'counter');
-final doubleReacton = computed<int>((read) => read(counterReacton) * 2, name: 'double');
+final counterReacton = reacton(0, name: 'counter');
+final doubleReacton = computed((read) => read(counterReacton) * 2, name: 'double');
 
 // 2. Wrap your app in ReactonScope
 void main() => runApp(ReactonScope(child: MyApp()));
@@ -67,8 +67,8 @@ Reacton is built around a **reactive graph engine** using a two-phase **mark/pro
 
 Three API levels for progressive complexity:
 
-- **Level 1 (Beginner):** `atom()`, `context.watch()`, `context.set()`
-- **Level 2 (Intermediate):** `computed()`, `effect()`, `asyncReacton()`, `selector()`, `family()`
+- **Level 1 (Beginner):** `reacton()`, `context.watch()`, `context.set()`
+- **Level 2 (Intermediate):** `computed()`, `createEffect()`, `asyncReacton()`, `selector()`, `family()`
 - **Level 3 (Advanced):** `createBranch()`, `enableHistory()`, middleware, persistence, isolates
 
 ## Development
@@ -94,6 +94,11 @@ melos run format
 - [Counter](examples/counter/) -- Minimal counter app
 - [Todo App](examples/todo_app/) -- Full-featured todo app with filtering
 - [Realtime Chat](examples/realtime_chat/) -- Async reactons with real-time updates
+- [Showcase](examples/showcase/) -- Dashboard, auth flow, time-travel, advanced patterns
+
+## Documentation
+
+Full documentation, guides, and API reference: <https://sitharaj88.github.io/reacton/>.
 
 ## License
 
