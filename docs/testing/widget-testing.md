@@ -8,7 +8,7 @@ The `reacton_test` package provides extensions on `WidgetTester` that make it ea
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  reacton_test: ^0.1.2
+  reacton_test: ^0.2.0
 ```
 
 ```dart

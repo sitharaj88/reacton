@@ -2,7 +2,7 @@ name: flutter_reacton
 description: >
   Flutter widgets and bindings for the Reacton state management library.
   Provides ReactonScope, ReactonBuilder, context.watch(), and more.
-version: 0.1.2
+version: 0.2.0
 homepage: https://github.com/sitharaj88/reacton
 repository: https://github.com/sitharaj88/reacton
 issue_tracker: https://github.com/sitharaj88/reacton/issues
@@ -14,7 +14,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  reacton: ^0.1.0
+  reacton: ^0.2.0
 
 dev_dependencies:
   flutter_test:

@@ -12,7 +12,7 @@ Add it as a dev dependency:
 
 ```yaml
 dev_dependencies:
-  reacton_test: ^0.1.2
+  reacton_test: ^0.2.0
 ```
 
 Then import everything you need:

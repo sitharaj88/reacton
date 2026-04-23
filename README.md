@@ -10,13 +10,13 @@ A novel reactive graph engine for Flutter. Fine-grained state management with re
 
 | Package | Description | Version |
 |---------|-------------|---------|
-| [reacton](packages/reacton/) | Pure Dart core -- reactons, reactive graph, store, async, middleware | 0.1.2 |
-| [flutter_reacton](packages/flutter_reacton/) | Flutter widgets -- ReactonScope, ReactonBuilder, context.watch() | 0.1.2 |
-| [reacton_test](packages/reacton_test/) | Testing utilities -- TestReactonStore, mocks, widget helpers | 0.1.2 |
-| [reacton_lint](packages/reacton_lint/) | Custom lint rules via custom_lint | 0.1.2 |
-| [reacton_cli](packages/reacton_cli/) | CLI tool -- scaffolding, graph analysis, diagnostics | 0.1.2 |
-| [reacton_devtools](packages/reacton_devtools/) | DevTools extension -- graph view, inspector, timeline | 0.1.2 |
-| [reacton_generator](packages/reacton_generator/) | Code generation with build_runner | 0.1.2 |
+| [reacton](packages/reacton/) | Pure Dart core -- reactons, reactive graph, store, async, middleware | 0.2.0 |
+| [flutter_reacton](packages/flutter_reacton/) | Flutter widgets -- ReactonScope, ReactonBuilder, context.watch() | 0.2.0 |
+| [reacton_test](packages/reacton_test/) | Testing utilities -- TestReactonStore, mocks, widget helpers | 0.2.0 |
+| [reacton_lint](packages/reacton_lint/) | Custom lint rules via custom_lint | 0.2.0 |
+| [reacton_cli](packages/reacton_cli/) | CLI tool -- scaffolding, graph analysis, diagnostics | 0.2.0 |
+| [reacton_devtools](packages/reacton_devtools/) | DevTools extension -- graph view, inspector, timeline | 0.2.0 |
+| [reacton_generator](packages/reacton_generator/) | Code generation with build_runner | 0.2.0 |
 
 ## Quick Start
 
@@ -24,7 +24,7 @@ Add `flutter_reacton` to your Flutter project (it re-exports `reacton`):
 
 ```yaml
 dependencies:
-  flutter_reacton: ^0.1.2
+  flutter_reacton: ^0.2.0
 ```
 
 ```dart

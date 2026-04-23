@@ -1,3 +1,7 @@
+## 0.2.0
+
+- Bump: `reacton: ^0.2.0`.
+
 ## 0.1.2
 
 - Maintenance release with version bump

@@ -8,7 +8,7 @@ Add the package to your dependencies:
 
 ```yaml
 dependencies:
-  reacton_devtools: ^0.1.2
+  reacton_devtools: ^0.2.0
 ```
 
 ## Setup

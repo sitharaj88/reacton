@@ -2,7 +2,7 @@ name: reacton_devtools
 description: >
   Flutter DevTools extension for Reacton. Provides reactive graph visualization,
   reacton inspector, timeline view, and state branching UI.
-version: 0.1.2
+version: 0.2.0
 homepage: https://github.com/sitharaj88/reacton
 repository: https://github.com/sitharaj88/reacton
 issue_tracker: https://github.com/sitharaj88/reacton/issues
@@ -15,7 +15,7 @@ dependencies:
   flutter:
     sdk: flutter
   devtools_extensions: ^0.5.0
-  reacton: ^0.1.0
+  reacton: ^0.2.0
 
 dev_dependencies:
   flutter_test:

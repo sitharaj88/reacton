@@ -94,11 +94,11 @@ createEffect(
 
 ## Is Reacton production ready?
 
-Reacton is at version 0.1.2 and is suitable for production use with the understanding that the API may evolve before 1.0. The core reactive engine, Flutter integration, async handling, testing utilities, and DevTools extension are all fully functional.
+Reacton is at version 0.2.0 and is suitable for production use with the understanding that the API may evolve before 1.0. The core reactive engine, Flutter integration, async handling, testing utilities, and DevTools extension are all fully functional.
 
 We recommend:
 
-- Pinning your dependency to a specific minor version (`^0.1.2`)
+- Pinning your dependency to a specific minor version (`^0.2.0`)
 - Following the [changelog](/resources/changelog) for breaking changes
 - Writing comprehensive tests using `reacton_test` so upgrades are safe
 

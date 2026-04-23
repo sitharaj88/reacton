@@ -8,9 +8,9 @@ A forward look at what the Reacton team is working on, what is being considered,
 - **1.0** — API surface is frozen for the core (`reacton`, `flutter_reacton`, `reacton_test`). Minor versions add capabilities without breaking callers.
 - **2.0+** — reserved for fundamental architectural shifts. We do not expect one for the foreseeable future.
 
-## Where we are today — 0.1.x
+## Where we are today — 0.2.x
 
-Reacton 0.1.2 ships with:
+Reacton 0.2.0 ships with:
 
 - A stable reactive graph engine with two-phase glitch-free propagation.
 - The Level 1 primitives (`reacton`, `computed`, `effect`, `watch`, `set`, `update`).
@@ -22,9 +22,9 @@ Reacton 0.1.2 ships with:
 
 The public API surface is stable enough to adopt for new projects. Breaking changes, if any, will be small and well-signposted.
 
-## Recently landed (unreleased, next: 0.2.0)
+## Shipped in 0.2.0
 
-Two additive features merged and tested — awaiting a release tag.
+Two additive features merged, tested, version-bumped and ready to publish.
 
 | Feature | What it does |
 |---------|--------------|

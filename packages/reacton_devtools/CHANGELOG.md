@@ -1,3 +1,8 @@
+## 0.2.0
+
+- Bump: `reacton: ^0.2.0`.
+- DevTools extension metadata bumped to 0.2.0.
+
 ## 0.1.2
 
 - Update devtools_extensions dependency to ^0.5.0

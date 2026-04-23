@@ -8,10 +8,10 @@ Add the generator and build_runner to your project:
 
 ```yaml
 dependencies:
-  reacton: ^0.1.2
+  reacton: ^0.2.0
 
 dev_dependencies:
-  reacton_generator: ^0.1.2
+  reacton_generator: ^0.2.0
   build_runner: ^2.4.0
 ```
 

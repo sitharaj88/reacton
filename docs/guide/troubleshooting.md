@@ -17,13 +17,13 @@ If you previously pinned an older version of Reacton, update every Reacton packa
 
 ```yaml
 dependencies:
-  flutter_reacton: ^0.1.2
-  reacton: ^0.1.2
+  flutter_reacton: ^0.2.0
+  reacton: ^0.2.0
 
 dev_dependencies:
-  reacton_test: ^0.1.2
-  reacton_generator: ^0.1.2
-  reacton_lint: ^0.1.2
+  reacton_test: ^0.2.0
+  reacton_generator: ^0.2.0
+  reacton_lint: ^0.2.0
 ```
 
 Then:

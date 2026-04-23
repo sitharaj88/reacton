@@ -1,3 +1,7 @@
+## 0.2.0
+
+- Maintenance release. No user-visible changes — version-bumped in lockstep with the rest of the monorepo.
+
 ## 0.1.2
 
 - Maintenance release with version bump

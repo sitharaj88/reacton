@@ -6,9 +6,11 @@ Version history for all Reacton packages. All packages in the monorepo share the
 
 ---
 
-## Unreleased (next: 0.2.0)
+## 0.2.0
 
-Two additive features. No breaking changes.
+_Unreleased as of this writing — all code, tests, and docs are ready; run `dart pub publish` per package to release._
+
+Two additive features. No breaking changes from 0.1.2.
 
 ### `flutter_reacton`
 - **New:** [`ReactonSuspense<T>`](/flutter/suspense) — unwraps a single `AsyncValue<T>` reacton so builders receive `T` directly. Handles loading, error, and data states with a clean three-callback API. Defaults to stale-while-revalidate; opt out with `keepPreviousData: false`.
@@ -25,7 +27,7 @@ Two additive features. No breaking changes.
 
 ```yaml
 dependencies:
-  flutter_reacton: ^0.2.0   # when released
+  flutter_reacton: ^0.2.0
 ```
 
 Suspense:

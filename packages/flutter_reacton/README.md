@@ -6,7 +6,7 @@ Flutter widgets and bindings for the Reacton state management library. Provides 
 
 ```yaml
 dependencies:
-  flutter_reacton: ^0.1.2
+  flutter_reacton: ^0.2.0
 ```
 
 `flutter_reacton` re-exports `package:reacton/reacton.dart`, so you only need this single dependency.

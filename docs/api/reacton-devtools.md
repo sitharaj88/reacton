@@ -7,7 +7,7 @@ The `reacton_devtools` package provides a DevTools extension for inspecting Reac
 ```yaml
 # pubspec.yaml
 dependencies:
-  reacton_devtools: ^0.1.2
+  reacton_devtools: ^0.2.0
 ```
 
 ## Quick Setup

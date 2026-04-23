@@ -39,9 +39,9 @@ reacton init [--no-example]
 ### What It Does
 
 1. **Adds dependencies to `pubspec.yaml`:**
-   - `flutter_reacton: ^0.1.2` under `dependencies`
-   - `reacton_test: ^0.1.2` under `dev_dependencies`
-   - `reacton_lint: ^0.1.2` under `dev_dependencies`
+   - `flutter_reacton: ^0.2.0` under `dependencies`
+   - `reacton_test: ^0.2.0` under `dev_dependencies`
+   - `reacton_lint: ^0.2.0` under `dev_dependencies`
 
 2. **Creates `lib/reactons/` directory** (if it does not exist)
 

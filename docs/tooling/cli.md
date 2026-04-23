@@ -32,9 +32,9 @@ reacton init
 
 ### What It Does
 
-1. Adds `flutter_reacton: ^0.1.2` to `dependencies` in `pubspec.yaml`
-2. Adds `reacton_test: ^0.1.2` to `dev_dependencies`
-3. Adds `reacton_lint: ^0.1.2` to `dev_dependencies`
+1. Adds `flutter_reacton: ^0.2.0` to `dependencies` in `pubspec.yaml`
+2. Adds `reacton_test: ^0.2.0` to `dev_dependencies`
+3. Adds `reacton_lint: ^0.2.0` to `dev_dependencies`
 4. Creates `lib/reactons/` directory
 5. Adds `custom_lint` plugin to `analysis_options.yaml`
 6. (With `--example`) Creates a starter `counter_reacton.dart`
